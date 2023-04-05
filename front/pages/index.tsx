@@ -6,7 +6,7 @@ import ReactSearchBox from "react-search-box";
 import data from './data.json' assert {type: 'json'};
 
 function Buildings_repr({ list }) {
-  /*console.log(list)*/
+  
   return (
     <div>
       <h2>known Buildings </h2>
@@ -36,7 +36,25 @@ export default function Home() {
   }, []);
   const menuItems = ['Hauteur', 'DPE', 'Année construction', 'superficie'];
   const [activeItem, setActiveItem] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  /*pour la barre de recherche maintenant*/
+
+  const onSelect = (selected) => {
+    const figure = data.find((figure) => figure.id === selected.key);
+    setSelectedItem(figure);
+    console.log(selectedItem);
+  };
+
+  const handleSearchInputChange = (value) => {
+    setSearchQuery(value);
+  };
+  const filteredFigures = data.filter((figure) =>
+    figure.value.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   
+
+
 
   return (
     <>      <Head>
@@ -46,7 +64,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1>Example of page</h1>
+
         <Buildings_repr list={buildings} />
       
     
@@ -65,10 +83,18 @@ export default function Home() {
     <h4>search bar</h4>
     <ReactSearchBox
         placeholder="rechercher pays"
-        
+    
         data={data}
-        callback={(record) => console.log(record)}
+        onSelect={onSelect}
+        onChange={handleSearchInputChange}
       />
+      <ul>
+        {filteredFigures.map((figure) => (
+          <li key={figure.id}>
+            {figure.value} ({figure.continent})
+          </li>
+        ))}
+      </ul>
 
     
       </main>
