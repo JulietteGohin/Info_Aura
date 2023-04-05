@@ -1,0 +1,32 @@
+.menu {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 10px 0;
+    white-space: nowrap;
+  }
+  
+  .menuItem {
+    display: inline-block;
+    padding: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .menuItem.active {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .line {
+    height: 3px;
+    background-color: #333;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: transform 0.3s ease;
+  }
+  
