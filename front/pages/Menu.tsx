@@ -15,6 +15,8 @@ const Menu = ({ items, activeItem, setActiveItem }) => {
     };
   }, []);
 
+  
+
   // Calculate the width of each menu item based on the number of items
   const itemWidth = 100 / items.length;
 

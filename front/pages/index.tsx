@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import Menu from './Menu';
 import ReactSearchBox from "react-search-box";
 import data from './data.json' assert {type: 'json'};
-
+const host_name = 'http://localhost:5000/api/';
+const site_name = 'http://localhost:3000/';
 function Buildings_repr({ list }) {
   
   return (
@@ -18,6 +19,24 @@ function Buildings_repr({ list }) {
     </div>
   );
 }
+
+const sendData = async (data) => {
+  const response = await fetch('http://localhost:5000/api/receive', {
+     
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+
+    },
+    body: JSON.stringify(data),
+  })
+  .then((res) => res.json())
+  .then((data) => console.log(data))
+  .catch((err) =>   console.error(err));
+  
+  const responseData = await response.json();
+  return responseData;
+};
 
 export default function Home() {
   const [buildings, setBuildings] = useState([]);
@@ -41,9 +60,10 @@ export default function Home() {
   /*pour la barre de recherche maintenant*/
 
   const onSelect = (selected) => {
-    const figure = data.find((figure) => figure.id === selected.key);
+    const figure = data.find((figure) => figure.id === selected.id);
     setSelectedItem(figure);
-    console.log(selectedItem);
+    sendData(figure);
+    
   };
 
   const handleSearchInputChange = (value) => {
@@ -76,10 +96,10 @@ export default function Home() {
         setActiveItem={setActiveItem}
 
       />
-      {/* Render the rest of your app components here */}
+      {}
     </div>
     <h3>option chosen: </h3>
-    <li>{menuItems[activeItem]}</li>
+    <li>{menuItems[activeItem]    }</li>
     <h4>search bar</h4>
     <ReactSearchBox
         placeholder="rechercher pays"
