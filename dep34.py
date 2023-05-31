@@ -1,8 +1,8 @@
 import geopandas as gpd
 import pandas as pd
 import fiona
-import matplotlib as plt
-import json
+import matplotlib.pyplot as plt
+import pdb
 
 class Data:
 
@@ -35,12 +35,23 @@ class Data:
         light_data = 'light_data.gpkg'
 
         with fiona.open(self.file, 'r', layer='batiment_groupe_compile') as source:
-            with fiona.open(light_data, 'w', driver='GPKG') as new_file:
+            print('reading original file')
+            schema = source.schema
+            with fiona.open(light_data, 'w', driver='GPKG', schema=schema) as new_file:
                 for element in source:
+                    print(element)
                     new_file.write(element)
+                    print('writing done')
         return light_data
 
 
+    def attributes(self, light_data):
+        gdf = gpd.read_file(light_data)
+        list_columns = []
+        for col in gdf.columns :
+            list_columns.append(col)
+        return list_columns
+    
 
 
 
@@ -64,8 +75,22 @@ class Plot:
         gdf = gpd.read_file(self.data)
         gdf = gdf.groupby(by='code_commune_insee')
         sub_gdf = gdf.get_group(postal_code) 
-        sub_gdf.hist('hauteur', bins=10, legend = True)
+        sub_gdf.hist('hauteur', bins=10, legend = True) #l'attribut n'a pas le même nom dans la couche conservée
         plt.show()
-        
+
+
+
+data = Data('bdnb.gpkg') 
+print(data.attributes('light_data.gpkg'))       
+
+
+
+
+def main():
+    data = Data('bdnb.gpkg')
+    #light_data = data.clear_data()
+    stats = Plot('light_data.gpkg')
+    stats.plot_height_city('34001')
+
 
 
