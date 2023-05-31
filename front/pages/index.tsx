@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import { useEffect, useState } from 'react'
+import axios from "axios";
 import Menu from './Menu';
 import ReactSearchBox from "react-search-box";
 import data from './data.json' assert {type: 'json'};
@@ -21,22 +22,21 @@ function Buildings_repr({ list }) {
 }
 
 const sendData = async (data) => {
+  console.log("Sending Chat: " + JSON.stringify(data, null,));
   const response = await fetch('http://localhost:5000/api/receive', {
-     
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
+    
+      method: 'POST',
+      mode: 'cors',
+      headers: {   
+        'Content-Type': 'application/json', sec_fetch_site: 'cross-site'
+      },
+      
+      body: JSON.stringify(data)
+    
+    })
+    
+  };
 
-    },
-    body: JSON.stringify(data),
-  })
-  .then((res) => res.json())
-  .then((data) => console.log(data))
-  .catch((err) =>   console.error(err));
-  
-  const responseData = await response.json();
-  return responseData;
-};
 
 export default function Home() {
   const [buildings, setBuildings] = useState([]);
