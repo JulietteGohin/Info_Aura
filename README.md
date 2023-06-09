@@ -1,2 +1,6 @@
-# Info_Aura
-Repo de suivi du projet d'info 
+# Boilerplate
+
+Structure:
+
+* *back* using `flask + flask_restx`
+* *front* using `reactjs + nextjs`
