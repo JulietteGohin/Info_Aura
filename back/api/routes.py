@@ -40,8 +40,9 @@ class Receive(Resource):
         data = request.json
         with open("data.txt", "a") as f:
             d = dict(data)
-            f.write("identifiant reçu" + str(d["item"]["id"]) + "\n")
-            graph(d["item"]["value"])
+            f.write("received" + str(data) + "\n")
+            f.write("identifiant =" + str(d["item"]["value"]) + "\n")
+            graph(d["item"]["value"])  # call graph function to create another image
         return jsonify({"status": "success", "message": "Data received"})
 
 

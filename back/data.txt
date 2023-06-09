@@ -6,3 +6,59 @@ identifiant reçu13
 identifiant reçu2
 identifiant reçu4
 identifiant reçu1
+identifiant reçu7
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 12}
+received{'item': {'id': 4, 'value': 'Ghana', 'continent': 'Africa'}, 'refIndex': 1}
+identifiant =4
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 1}
+identifiant =13
+received{'item': {'id': 21, 'value': 'Tanzania', 'continent': 'Africa'}, 'refIndex': 20}
+identifiant =Tanzania
+received{'item': {'id': 24, 'value': 'Pakistan', 'continent': 'Asia'}, 'refIndex': 6}
+identifiant =Pakistan
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 1}
+identifiant =France
+received{'item': {'id': 24, 'value': 'Pakistan', 'continent': 'Asia'}, 'refIndex': 3}
+identifiant =Pakistan
+received{'item': {'id': 8, 'value': 'Italy', 'continent': 'Europe'}, 'refIndex': 0}
+identifiant =Italy
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 1}
+identifiant =France
+received{'item': {'id': 2, 'value': 'India', 'continent': 'Asia'}, 'refIndex': 1}
+identifiant =India
+received{'item': {'id': 19, 'value': 'Mexico', 'continent': 'South America'}, 'refIndex': 18}
+identifiant =Mexico
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 1}
+identifiant =France
+received{'item': {'id': 19, 'value': 'Mexico', 'continent': 'South America'}, 'refIndex': 2}
+identifiant =Mexico
+received{'item': {'id': 5, 'value': 'Japan', 'continent': 'Asia'}, 'refIndex': 0}
+identifiant =Japan
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 12}
+identifiant =France
+received{'item': {'id': 19, 'value': 'Mexico', 'continent': 'South America'}, 'refIndex': 2}
+identifiant =Mexico
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 1}
+identifiant =France
+received{'item': {'id': 18, 'value': 'Denmark', 'continent': 'Europe'}, 'refIndex': 17}
+identifiant =Denmark
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 1}
+identifiant =France
+received{'item': {'id': 19, 'value': 'Mexico', 'continent': 'South America'}, 'refIndex': 18}
+identifiant =Mexico
+received{'item': {'id': 19, 'value': 'Mexico', 'continent': 'South America'}, 'refIndex': 2}
+identifiant =Mexico
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 1}
+identifiant =France
+received{'item': {'id': 19, 'value': 'Mexico', 'continent': 'South America'}, 'refIndex': 2}
+identifiant =Mexico
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 1}
+identifiant =France
+received{'item': {'id': 11, 'value': 'Paraguay', 'continent': 'South America'}, 'refIndex': 10}
+identifiant =Paraguay
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 1}
+identifiant =France
+received{'item': {'id': 19, 'value': 'Mexico', 'continent': 'South America'}, 'refIndex': 0}
+identifiant =Mexico
+received{'item': {'id': 18, 'value': 'Denmark', 'continent': 'Europe'}, 'refIndex': 16}
+identifiant =Denmark

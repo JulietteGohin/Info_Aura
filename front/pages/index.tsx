@@ -5,8 +5,13 @@ import Menu from "./Menu";
 import ReactSearchBox from "react-search-box";
 import data from "./data.json" assert { type: "json" };
 
+/* variables fixes*/
+
 const host_name = "http://localhost:5000/api/";
 const site_name = "http://localhost:3000/";
+const menuItems = ["Hauteur", "DPE", "Année construction", "superficie"];
+
+/*fonction pour afficher les données du serveur" */
 
 function Buildings_repr({ list }) {
   return (
@@ -22,7 +27,8 @@ function Buildings_repr({ list }) {
     </div>
   );
 }
-/*fonction pour envoyer les données au serveur" */
+
+/*fonction pour envoyer les données */
 const sendData = async (data) => {
   console.log("Sending Chat: " + JSON.stringify(data, null));
   const response = await fetch("http://localhost:5000/api/receive", {
@@ -38,8 +44,27 @@ const sendData = async (data) => {
 };
 
 export default function Home() {
-  const [buildings, setBuildings] = useState([]);
+  /*déclarons toutes les VARIABLES D ETAT dont nous aurons besoin */
+  const [activeItem, setActiveItem] = useState<string>(""); //item actif dans le menu
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState<
+    { id: number; value: string; continent: string }[]
+  >([]);
 
+  const [selectedItem_city, setSelectedItem_city] = useState<{
+    id: number;
+    value: string;
+    continent: string;
+  }>({
+    id: 0,
+    value: "",
+    continent: "",
+  });
+
+  const [buildings, setBuildings] = useState([]);
+  const [imageSrc, setImageSrc] = useState("/pictures/ploted.png");
+
+  /*récupérons les données du serveur */
   useEffect(() => {
     fetch("http://localhost:5000/api/buildings/list")
       .then((res) => res.json())
@@ -47,28 +72,25 @@ export default function Home() {
         setBuildings(data.buildings ?? []);
       });
   }, []);
-  const menuItems = ["Hauteur", "DPE", "Année construction", "superficie"];
-  const [activeItem, setActiveItem] = useState(0);
-  const [searchQuery, setSearchQuery] = useState("");
 
-  /*pour la barre de recherche maintenant*/
+  /* barre de recherche maintenant*/
+
+  const searchHandler = (value) => {
+    const filteredItems = data.filter((item) =>
+      item.value.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredData(filteredItems);
+  };
 
   const onSelect = (selected) => {
-    const figure = data.find((figure) => figure.id === selected.id);
-
+    // const figure = data.find((figure) => figure.id === selected.id);
+    console.log("selected: ", selected.item.value);
     sendData(selected);
+    setImageSrc("/pictures/" + selected.item.value + ".png");
   };
-
-  const handleSearchInputChange = (value) => {
-    setSearchQuery(value);
-  };
-  const filteredFigures = data.filter((figure) =>
-    figure.value.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <>
-      {" "}
       <Head>
         <title>Aura App</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -89,18 +111,20 @@ export default function Home() {
         <li key={menuItems[activeItem]}>{menuItems[activeItem]}</li>
         <h4>search bar</h4>
         <ReactSearchBox
-          placeholder="rechercher pays"
-          data={data}
+          placeholder="Search countries"
+          data={filteredData}
           onSelect={onSelect}
-          onChange={handleSearchInputChange}
+          onChange={(value) => {
+            searchHandler(value);
+          }}
+          onFocus={() => {
+            searchHandler("");
+          }}
+          autoFocus
         />
-        <ul>
-          {filteredFigures.map((figure) => (
-            <li key={figure.id}>
-              {figure.value} ({figure.continent})
-            </li>
-          ))}
-        </ul>
+        <div>
+          <img src={imageSrc} alt="Image" />
+        </div>
       </main>
     </>
   );
