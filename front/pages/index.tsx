@@ -15,8 +15,8 @@ const menuItems = ["Hauteur", "DPE", "Année construction", "superficie"];
 
 function Buildings_repr({ list }) {
   return (
-    <div>
-      <h2>known Buildings </h2>
+    <div className={styles.history}>
+      <h2>History</h2>
       <ul>
         {list.map((building) => (
           <li key={building._id}>
@@ -91,24 +91,18 @@ export default function Home() {
 
   return (
     <>
+    <div>
       <Head>
         <title>Aura App</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <Buildings_repr list={buildings} />
 
-        <h2>scrolling menu</h2>
-        <div>
-          <Menu
-            items={menuItems}
-            activeItem={activeItem}
-            setActiveItem={setActiveItem}
-          />
-        </div>
-        <h3>option chosen: </h3>
-        <li key={menuItems[activeItem]}>{menuItems[activeItem]}</li>
+      <div className={styles.header}>
+        <h1>El Thunno</h1>
+        <h2>Le site de comparateur</h2>
+      </div>
+      <div>
         <h4>search bar</h4>
         <ReactSearchBox
           placeholder="Search countries"
@@ -122,10 +116,33 @@ export default function Home() {
           }}
           autoFocus
         />
-        <div>
-          <img src={imageSrc} alt="Image" />
-        </div>
-      </main>
+      </div>
+      
+      <div>
+        <main className={styles.main}>
+          <div className={styles.sub_header}>
+            <h2>Scrolling menu</h2>
+          </div>
+          <div>
+            <Menu
+              items={menuItems}
+              activeItem={activeItem}
+              setActiveItem={setActiveItem}
+            />
+          </div>
+          <div>
+            <h3>Option chosen:</h3>
+            <li key={menuItems[activeItem]}>{menuItems[activeItem]}</li>
+          </div>
+          <div className={styles.graphe}>
+            <h3> Graphe d'interprétations</h3>
+            <img src={imageSrc} alt="Image" className={styles.image} />
+            <p>Ces statistiques sont prélevées sur des données</p>
+          </div>
+          <Buildings_repr list={buildings} />
+        </main>
+      </div>
+    </div>
     </>
   );
 }
