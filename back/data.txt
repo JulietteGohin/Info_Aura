@@ -82,3 +82,23 @@ received{'item': {'id': 10, 'value': 'China', 'continent': 'Asia'}, 'refIndex': 
 identifiant =China
 received{'item': {'id': 21, 'value': 'Tanzania', 'continent': 'Africa'}, 'refIndex': 2}
 identifiant =Tanzania
+received{'item': {'id': 10, 'value': 'China', 'continent': 'Asia'}, 'refIndex': 0}
+identifiant =China
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 0}
+identifiant =France
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 0}
+identifiant =France
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 1}
+identifiant =France
+received{'item': {'id': 11, 'value': 'Paraguay', 'continent': 'South America'}, 'refIndex': 9}
+identifiant =Paraguay
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 1}
+identifiant =France
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 1}
+identifiant =France
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 0}
+identifiant =France
+received{'item': {'id': 16, 'value': 'Senegal', 'continent': 'Africa'}, 'refIndex': 15}
+identifiant =Senegal
+received{'item': {'id': 13, 'value': 'France', 'continent': 'Europe'}, 'refIndex': 1}
+identifiant =France
