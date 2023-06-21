@@ -3,6 +3,7 @@ from flask_restx import Resource, fields, Api
 from .models import Building
 from flask import jsonify
 from graph_generator import graph
+from .data import items
 
 
 host_name = "http://localhost:5000/api/"
@@ -38,12 +39,22 @@ building_edit_model = rest_api.model(
 class Receive(Resource):
     def post(self):
         data = request.json
-        with open("data.txt", "a") as f:
-            d = dict(data)
-            f.write("received" + str(data) + "\n")
-            f.write("identifiant =" + str(d["item"]["value"]) + "\n")
-            graph(d["item"]["value"])  # call graph function to create another image
+        d = dict(data)
+        graph(d["item"]["value"])  # call graph function to create another image
         return jsonify({"status": "success", "message": "Data received"})
+
+
+@rest_api.route("/api/searchbar/list")
+class ListBuildings(Resource):
+    """
+    Returns a list of all countries
+    """
+
+    data = items
+    # data = items
+
+    def get(self):
+        return jsonify(self.data)
 
 
 @rest_api.route("/api/buildings/list")

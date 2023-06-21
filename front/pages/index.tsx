@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Menu from "./Menu";
 import ReactSearchBox from "react-search-box";
 import data from "./data.json" assert { type: "json" };
-
+import axios from "axios";
 /* variables fixes*/
 
 const host_name = "http://localhost:5000/api/";
@@ -21,6 +21,20 @@ function Buildings_repr({ list }) {
         {list.map((building) => (
           <li key={building._id}>
             Nom : {building.name} id : {building._id}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+function Locations_repr({ list }) {
+  return (
+    <div>
+      <h2>known locations </h2>
+      <ul>
+        {list.map((item) => (
+          <li key={item._id}>
+            Nom : {item.value} id : {item.id}
           </li>
         ))}
       </ul>
@@ -46,7 +60,7 @@ const sendData = async (data) => {
 export default function Home() {
   /*déclarons toutes les VARIABLES D ETAT dont nous aurons besoin */
   const [activeItem, setActiveItem] = useState<string>(""); //item actif dans le menu
-  const [searchQuery, setSearchQuery] = useState("");
+  //const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState<
     { id: number; value: string; continent: string }[]
   >([]);
@@ -62,9 +76,14 @@ export default function Home() {
   });
 
   const [buildings, setBuildings] = useState([]);
+  const [countries, setCountries] = useState<
+    { id: number; value: string; continent: string }[]
+  >([]);
   const [imageSrc, setImageSrc] = useState("/pictures/ploted.png");
 
   /*récupérons les données du serveur */
+  /* d'abord les bâtiments */
+
   useEffect(() => {
     fetch("http://localhost:5000/api/buildings/list")
       .then((res) => res.json())
@@ -73,7 +92,25 @@ export default function Home() {
       });
   }, []);
 
-  /* barre de recherche maintenant*/
+  /* pour barre de recherche maintenant*/
+  const [data2, setData2] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/searchbar/list"
+        );
+        const jsonData = await response.json();
+        setData2(jsonData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+    console.log("data2: ");
+    console.log(data2);
+  }, []);
 
   const searchHandler = (value) => {
     const filteredItems = data.filter((item) =>
@@ -125,6 +162,7 @@ export default function Home() {
         <div>
           <img src={imageSrc} alt="Image" />
         </div>
+        <Locations_repr list={data2} />
       </main>
     </>
   );
