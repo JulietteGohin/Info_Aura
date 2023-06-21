@@ -15,8 +15,8 @@ const menuItems = ["Hauteur", "DPE", "Année construction", "superficie"];
 
 function Buildings_repr({ list }) {
   return (
-    <div>
-      <h2>known Buildings </h2>
+    <div className={styles.history}>
+      <h2>History</h2>
       <ul>
         {list.map((building) => (
           <li key={building._id}>
@@ -128,42 +128,59 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>Aura App</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main className={styles.main}>
-        <Buildings_repr list={buildings} />
+      <div>
+        <Head>
+          <title>Aura App</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-        <h2>scrolling menu</h2>
+        <div className={styles.header}>
+          <h1>El Thunno</h1>
+          <h2>Le site de comparateur</h2>
+        </div>
         <div>
-          <Menu
-            items={menuItems}
-            activeItem={activeItem}
-            setActiveItem={setActiveItem}
+          <h4>search bar</h4>
+          <ReactSearchBox
+            placeholder="Search countries"
+            data={filteredData}
+            onSelect={onSelect}
+            onChange={(value) => {
+              searchHandler(value);
+            }}
+            onFocus={() => {
+              searchHandler("");
+            }}
+            autoFocus
           />
         </div>
-        <h3>option chosen: </h3>
-        <li key={menuItems[activeItem]}>{menuItems[activeItem]}</li>
-        <h4>search bar</h4>
-        <ReactSearchBox
-          placeholder="Search countries"
-          data={filteredData}
-          onSelect={onSelect}
-          onChange={(value) => {
-            searchHandler(value);
-          }}
-          onFocus={() => {
-            searchHandler("");
-          }}
-          autoFocus
-        />
+
         <div>
-          <img src={imageSrc} alt="Image" />
+          <main className={styles.main}>
+            <div className={styles.sub_header}>
+              <h2>Scrolling menu</h2>
+            </div>
+            <div>
+              <Menu
+                items={menuItems}
+                activeItem={activeItem}
+                setActiveItem={setActiveItem}
+              />
+            </div>
+            <div>
+              <h3>Option chosen:</h3>
+              <li key={menuItems[activeItem]}>{menuItems[activeItem]}</li>
+            </div>
+            <div className={styles.graphe}>
+              <h3> Graphe d'interprétations</h3>
+              <img src={imageSrc} alt="Image" className={styles.image} />
+              <p>Ces statistiques sont prélevées sur des données</p>
+            </div>
+            <Locations_repr list={data2} />
+            <Buildings_repr list={buildings} />
+          </main>
         </div>
-        <Locations_repr list={data2} />
-      </main>
+      </div>
     </>
   );
 }
