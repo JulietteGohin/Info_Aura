@@ -3,8 +3,7 @@ import styles from "@/styles/Home.module.css";
 import { useEffect, useState } from "react";
 import Menu from "./Menu";
 import ReactSearchBox from "react-search-box";
-import data from "./data.json" assert { type: "json" };
-import axios from "axios";
+
 /* variables fixes*/
 
 const host_name = "http://localhost:5000/api/";
@@ -33,9 +32,7 @@ function Locations_repr({ list }) {
       <h2>known locations </h2>
       <ul>
         {list.map((item) => (
-          <li key={item._id}>
-            Nom : {item.value} id : {item.id}
-          </li>
+          <li key={item.id}>Nom : {item.nom}</li>
         ))}
       </ul>
     </div>
@@ -59,26 +56,14 @@ const sendData = async (data) => {
 
 export default function Home() {
   /*déclarons toutes les VARIABLES D ETAT dont nous aurons besoin */
-  const [activeItem, setActiveItem] = useState<string>(""); //item actif dans le menu
-  //const [searchQuery, setSearchQuery] = useState("");
-  const [filteredData, setFilteredData] = useState<
-    { id: number; value: string; continent: string }[]
-  >([]);
+  const [activeIndicator, setActiveIndicator] = useState<string>(""); //item actif dans le menu
 
-  const [selectedItem_city, setSelectedItem_city] = useState<{
-    id: number;
-    value: string;
-    continent: string;
-  }>({
-    id: 0,
-    value: "",
-    continent: "",
-  });
+  const [filteredCities, setFilteredCities] = useState<
+    { id: number; nom: string; code_postal: string }[]
+  >([]);
 
   const [buildings, setBuildings] = useState([]);
-  const [countries, setCountries] = useState<
-    { id: number; value: string; continent: string }[]
-  >([]);
+
   const [imageSrc, setImageSrc] = useState("/pictures/ploted.png");
 
   /*récupérons les données du serveur */
@@ -108,23 +93,30 @@ export default function Home() {
     };
 
     fetchData();
-    console.log("data2: ");
-    console.log(data2);
+    //console.log("data2: ");
+    //console.log(data2);
   }, []);
-
-  const searchHandler = (value) => {
-    const filteredItems = data.filter((item) =>
-      item.value.toLowerCase().includes(value.toLowerCase())
+  // utilisation de la barre de recherche
+  const searchHandler = (nom: string) => {
+    // it triggers when input changes
+    const filtered = data2.filter(
+      (item: { id: number; nom: string; code_postal: string }) =>
+        item.nom.includes(nom) //toLowercase() pour ignorer la casse
     );
-    setFilteredData(filteredItems);
-  };
 
-  const onSelect = (selected) => {
-    // const figure = data.find((figure) => figure.id === selected.id);
-    console.log("selected: ", selected.item.value);
-    sendData(selected);
-    setImageSrc("/pictures/" + selected.item.value + ".png");
+    setFilteredCities(filtered);
   };
+  const onSelect = (selected) => {
+    // it is triggered when an item is selected from the search box
+    console.log("selected: ", selected.item);
+    const nom = selected.item.label;
+    sendData(selected.item);
+    setImageSrc("/pictures/" + nom + ".png");
+  };
+  const cityOptions = filteredCities.map((city) => ({
+    value: `${city.nom} (${city.code_postal})`,
+    label: `${city.nom}`,
+  }));
 
   return (
     <>
@@ -136,14 +128,14 @@ export default function Home() {
         </Head>
 
         <div className={styles.header}>
-          <h1>El Thunno</h1>
-          <h2>Le site de comparateur</h2>
+          <h1>Aura app</h1>
+          <h2>Le site de plotting de data</h2>
         </div>
         <div>
           <h4>search bar</h4>
           <ReactSearchBox
-            placeholder="Search countries"
-            data={filteredData}
+            placeholder="Search city"
+            data={cityOptions}
             onSelect={onSelect}
             onChange={(value) => {
               searchHandler(value);
@@ -163,13 +155,15 @@ export default function Home() {
             <div>
               <Menu
                 items={menuItems}
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
+                activeItem={activeIndicator}
+                setActiveItem={setActiveIndicator}
               />
             </div>
             <div>
               <h3>Option chosen:</h3>
-              <li key={menuItems[activeItem]}>{menuItems[activeItem]}</li>
+              <li key={menuItems[activeIndicator]}>
+                {menuItems[activeIndicator]}
+              </li>
             </div>
             <div className={styles.graphe}>
               <h3> Graphe d'interprétations</h3>

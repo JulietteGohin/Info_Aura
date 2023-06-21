@@ -40,7 +40,7 @@ class Receive(Resource):
     def post(self):
         data = request.json
         d = dict(data)
-        graph(d["item"]["value"])  # call graph function to create another image
+        graph(d["label"])  # call graph function to create another image
         return jsonify({"status": "success", "message": "Data received"})
 
 
