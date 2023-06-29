@@ -28,11 +28,11 @@ class Data:
     def clear_data(self):
         """
         Deleting the uninteresting layers, keeping only 'batiment_groupe_compil'
-
+        
         ---
         Output : light_data.gpkg
         """
-        # The long step is to write in the new file...
+        # OK but very long to run...The long step is to write in the new file...
 
         light_data = 'light_data.gpkg'
 
@@ -47,9 +47,10 @@ class Data:
         return light_data
 
 
+
     def attributes(self, light_data):
         '''
-        Showing all the attributes of the layer 'batiment_groupe_compil'
+        Showing all the attributes of the layer
         
         ---
         Parameters:
@@ -83,6 +84,9 @@ class Data:
         return minimal_data
 
 
+    
+
+
 
 
 class Stats:
@@ -99,6 +103,16 @@ class Stats:
             #Colonnes d'intérêt
         else : 
             print('Format de fichier incompatible')
+
+        
+
+
+    def city_list(self):
+        """
+        Return an array object with all the cities in the dataset
+        """
+        return self.gdf['code_commune_insee'].unique()
+
 
 
     def hist_height_city(self, postal_code):
