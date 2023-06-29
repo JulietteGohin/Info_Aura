@@ -3,6 +3,7 @@ import pandas as pd
 import fiona
 import matplotlib.pyplot as plt
 import pdb
+import numpy as np
 
 class Data:
 
@@ -89,7 +90,15 @@ class Stats:
     def __init__(self, data):
         #data is minimal_data
         self.data = data
-        self.gdf = gpd.read_file(self.data)
+        file_format = self.data.split('.')[-1]
+        if file_format == 'csv':
+            self.gdf = pd.read_csv(self.data, low_memory=False)
+            # Colonnes d'intérêt
+        elif file_format == 'gpkg':
+            self.gdf = gpd.read_file(self.data)
+            #Colonnes d'intérêt
+        else : 
+            print('Format de fichier incompatible')
 
 
     def hist_height_city(self, postal_code):
@@ -124,52 +133,97 @@ class Stats:
         gdf = self.gdf.groupby(by='code_commune_insee')
         sub_gdf = gdf.get_group(postal_code)
         mean_height = sub_gdf['bdtopo_bat_hauteur_mean'].mean()
-        print(f"La hauteur moyenne des batiments de la ville {postal_code} est de {round(mean_height, 2)} m"
+        print(f"La hauteur moyenne des batiments de la ville {postal_code} est de {round(mean_height, 2)} m")
         return mean_height
     
 
-    def dpe_departement(self):
+    def dpe_departement_city(self, postal_code):
         """
-        Display the circular graphic of the DPE in the department
+        Display the circular graphic of the DPE in the department and in the chosen city
         
         ---
+        Parameters:
+        postal_code : str
+
         Output: 
-        plot circular graphic of the DPE in the department
+        2 circular graphics
         """ 
-        A = self.gdf['dpe_nb_classe_ener_a'].sum()
-        B = self.gdf['dpe_nb_classe_ener_b'].sum()
-        C = self.gdf['dpe_nb_classe_ener_c'].sum()
-        D = self.gdf['dpe_nb_classe_ener_d'].sum()
-        E = self.gdf['dpe_nb_classe_ener_e'].sum()
-        F = self.gdf['dpe_nb_classe_ener_f'].sum()
-        G = self.gdf['dpe_nb_classe_ener_g'].sum()
-        dpe_gdf = pd.DataFrame({'DPE': [A, B, C, D, E, F, G]}, index=['A', 'B', 'C', 'D', 'E', 'F', 'G'])
-        dpe_gdf.plot.pie(y='DPE', figsize=(5, 5), title="Répartition des DPE dans le département")
-
-
-    def dpe_city(self, postal_code):
-        """
-        Display the circular graphic of the DPE in the department
         
+        fig, ax = plt.subplots(2, 1, figsize=(5, 10))
+
+        #Departement
+        labels = 'A', 'B', 'C', 'D', 'E', 'F', 'G'
+        prop_dep = [self.gdf['dpe_nb_classe_ener_a'].sum(), self.gdf['dpe_nb_classe_ener_b'].sum(), self.gdf['dpe_nb_classe_ener_c'].sum(), self.gdf['dpe_nb_classe_ener_d'].sum(), self.gdf['dpe_nb_classe_ener_e'].sum(), self.gdf['dpe_nb_classe_ener_f'].sum(), self.gdf['dpe_nb_classe_ener_g'].sum()]
+
+        ax[0].pie(prop_dep, labels=labels, autopct='%1.1f%%', shadow=True)
+        ax[0].axis('equal')
+        ax[0].set_title("Répartition des DPE dans le département")
+        
+        
+        #City
+        gdf_city = self.gdf.groupby(by='code_commune_insee')
+        gdf_city = gdf_city.get_group(postal_code)
+        prop_city = [gdf_city['dpe_nb_classe_ener_a'].sum(), gdf_city['dpe_nb_classe_ener_b'].sum(), gdf_city['dpe_nb_classe_ener_c'].sum(), gdf_city['dpe_nb_classe_ener_d'].sum(), gdf_city['dpe_nb_classe_ener_e'].sum(), gdf_city['dpe_nb_classe_ener_f'].sum(), gdf_city['dpe_nb_classe_ener_g'].sum()]
+        
+        ax[1].pie(prop_city, labels=labels, autopct='%1.1f%%', shadow=True)
+        ax[1].axis('equal')
+        ax[1].set_title(f"Répartition des DPE dans la ville {postal_code}")
+
+        plt.show()
+
+
+    def correlation_hauteur_annee(self):
+        """
+        Display the scatter plot of the mean height of the buildings in function of the year of construction by iris
+
+        ---
+        Output:
+        scatter plot
+        """
+        gdf = self.gdf
+        gdf_iris = gdf.groupby('code_iris')
+        iris = list(gdf_iris.groups.keys())
+        hauteur_moyenne = []
+        annee_moyenne = []
+        for iris_code in iris : 
+            h_moyenne_iris = gdf_iris.get_group(iris_code)['bdtopo_bat_hauteur_mean'].mean(axis=0)
+            annee_moyenne_iris = gdf_iris.get_group(iris_code)['ffo_bat_annee_construction'].mean(axis=0)
+            hauteur_moyenne.append(h_moyenne_iris)
+            annee_moyenne.append(annee_moyenne_iris)
+        hauteur_moyenne = np.array(hauteur_moyenne)
+        annee_moyenne = np.array(annee_moyenne)
+    
+        fig, ax = plt.subplots()
+        ax.scatter(annee_moyenne, hauteur_moyenne, marker='o')
+        ax.set_title("Correlation entre la hauteur moyenne des batiments et l'annee de construction, par iris")
+        ax.set_xlabel("Annee de construction")
+        ax.set_ylabel("Hauteur moyenne des batiments (en m)")
+        plt.show()
+
+
+
+    def dpe_ges_city(self, postal_code):
+        """
+        Display the circular graphic of the GES indicator in the city
+    
         ---
         Parameters: 
         postal_code : str
 
         Output: 
-        plot circular graphic of the DPE in the department
+        plot circular graphic of the DPE in the city
         """
         gdf = self.gdf.groupby(by='code_commune_insee')
         gdf = gdf.get_group(postal_code)
-        A = gdf['dpe_nb_classe_ener_a'].sum()
-        B = gdf['dpe_nb_classe_ener_b'].sum()
-        C = gdf['dpe_nb_classe_ener_c'].sum()
-        D = gdf['dpe_nb_classe_ener_d'].sum()
-        E = gdf['dpe_nb_classe_ener_e'].sum()
-        F = gdf['dpe_nb_classe_ener_f'].sum()
-        G = gdf['dpe_nb_classe_ener_g'].sum()
-        dpe_gdf = pd.DataFrame({'DPE': [A, B, C, D, E, F, G]}, index=['A', 'B', 'C', 'D', 'E', 'F', 'G'])
-        dpe_gdf.plot.pie(y='DPE', figsize=(5, 5), title=f"Répartition des DPE dans la ville {postal_code}")
-#A regrouper en une seule fonction avec disjonction de cas selon qu'on veut les dpe du département ou de la ville ?
+        A = gdf['dpe_nb_classe_ges_a'].sum()
+        B = gdf['dpe_nb_classe_ges_b'].sum()
+        C = gdf['dpe_nb_classe_ges_c'].sum()
+        D = gdf['dpe_nb_classe_ges_d'].sum()
+        E = gdf['dpe_nb_classe_ges_e'].sum()
+        F = gdf['dpe_nb_classe_ges_f'].sum()
+        G = gdf['dpe_nb_classe_ges_g'].sum()
+        dpe_gdf = pd.DataFrame({'GES': [A, B, C, D, E, F, G]}, index=['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+        dpe_gdf.plot.pie(y='GES', figsize=(5, 5), title=f"Répartition des indicateurs GES dans la ville {postal_code}")
 
 
     def climatisation_rate(self, postal_code):
@@ -194,15 +248,16 @@ class Stats:
 
 
   
-if __name__ == "__main__":
+def main():
     minimal_data = 'light_building.gpkg'
     stats = Stats(minimal_data)
-    stats.dpe_departement()
+    stats.dpe_departement_city('69123')
+    stats.correlation_hauteur_annee()
     #stats.dpe_city('69123') #Lyon 
     #stats.hist_height_city('69123')
     #stats.mean_height_city('69123')
     #stats.climatisation_rate('69123')
 
 
-
+main()
 
