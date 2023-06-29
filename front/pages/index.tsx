@@ -1,4 +1,4 @@
-import Head from "next/head";
+ import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import { useEffect, useState } from "react";
 import Menu from "./Menu";
@@ -8,7 +8,7 @@ import ReactSearchBox from "react-search-box";
 
 const host_name = "http://localhost:5000/api/";
 const site_name = "http://localhost:3000/";
-const menuItems = ["Hauteur", "DPE", "Année construction", "superficie"];
+const menuItems = ["A", "B", "C", "D","E","F"];
 
 /*fonction pour afficher les données du serveur" */
 
@@ -18,7 +18,7 @@ function Buildings_repr({ list }) {
       <h2>History</h2>
       <ul>
         {list.map((building) => (
-          <li key={building._id}>
+          <li key={building._id} className={styles.list} >
             Nom : {building.name} id : {building._id}
           </li>
         ))}
@@ -120,61 +120,85 @@ export default function Home() {
 
   return (
     <>
-      <div>
-        <Head>
-          <title>Aura App</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-
+    
+      <Head>
+        <title>Aura App</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <body className={styles.body}>
         <div className={styles.header}>
-          <h1>Aura app</h1>
-          <h2>Le site de plotting de data</h2>
+          <h1>Aura App</h1>
+          <h2>Le site de comparateur</h2>
         </div>
-        <div>
-          <h4>search bar</h4>
-          <ReactSearchBox
-            placeholder="Search city"
-            data={cityOptions}
-            onSelect={onSelect}
-            onChange={(value) => {
-              searchHandler(value);
-            }}
-            onFocus={() => {
-              searchHandler("");
-            }}
-            autoFocus
-          />
-        </div>
-
-        <div>
-          <main className={styles.main}>
-            <div className={styles.sub_header}>
-              <h2>Scrolling menu</h2>
-            </div>
-            <div>
-              <Menu
-                items={menuItems}
-                activeItem={activeIndicator}
-                setActiveItem={setActiveIndicator}
+        <main className={styles.main}>
+          <div className={styles.sub_header}>
+            <h2>Scrolling menu</h2>
+          </div>
+          <div>
+            <Menu
+              items={menuItems}
+              activeItem={activeIndicator}
+              setActiveItem={setActiveIndicator}  
               />
+          </div>
+          <div className={styles.grid_container}>
+            <div className={styles.item}>
+              <div className={styles.left}>
+                <label>Search Bar:
+                  <ReactSearchBox
+                    placeholder="Search countries"
+                    data={cityOptions}
+                    onSelect={onSelect}
+                    onChange={(value) => {
+                      searchHandler(value);
+                    }}
+                    onFocus={() => {
+                      searchHandler("");
+                    }}
+                    autoFocus
+                  />
+                </label>
+                <div>
+                  <h3>Option chosen:</h3>
+                  <li key={menuItems[activeIndicator]}>{menuItems[activeIndicator]}</li>
+                </div>
+              </div>
             </div>
-            <div>
-              <h3>Option chosen:</h3>
-              <li key={menuItems[activeIndicator]}>
-                {menuItems[activeIndicator]}
-              </li>
+            <div className={styles.item}>
+              <div className={styles.right}>
+                <div className={styles.graphe}>
+                  <h3 className={styles.title}> Graphe d'interprétations</h3>
+                  <img src={imageSrc} alt="Image" className={styles.image} />
+                  <p className={styles.texte}>Ces statistiques sont prélevées sur des données</p>
+                </div>
+              </div>
+            </div>           
+          </div>
+          <Buildings_repr list={buildings} />
+          <Locations_repr list={data2} />
+        </main>
+        <footer className={styles.footer}>
+          <div className={styles.grid}>
+            <div className={styles.item_footer}>
+              <h6>About</h6>
             </div>
-            <div className={styles.graphe}>
-              <h3> Graphe d'interprétations</h3>
-              <img src={imageSrc} alt="Image" className={styles.image} />
-              <p>Ces statistiques sont prélevées sur des données</p>
+            <div className={styles.item_footer}>
+              <h6>Quick Links</h6>
             </div>
-            <Locations_repr list={data2} />
-            <Buildings_repr list={buildings} />
-          </main>
-        </div>
-      </div>
+            <div className={styles.item_footer}>
+              <div className={styles.data_gouv_ensemble}>
+                <p>Lien des données d'orgine</p>
+                <a href="https://www.ecologie.gouv.fr/diagnostic-performance-energetique-dpe"> <img src="/data_gouv.png" alt="data_gouv" className={styles.data_gouv}></img> </a>
+              </div>
+            </div> 
+            <div className="col">
+              <p className={styles.copyright_text}>Copyright &copy; 2017 All Rights Reserved by </p>
+            </div>  
+          </div>
+        </footer>
+      </body>
+   
     </>
   );
 }
