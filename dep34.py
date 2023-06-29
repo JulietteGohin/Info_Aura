@@ -125,7 +125,7 @@ class Stats:
         postal_code : str 
         
         """
-        gdf = self.gdf.groupby(by='code_commune_insee')
+        gdf = self.gdf.groupby(by='code_commune_insee') 
         sub_gdf = gdf.get_group(postal_code) 
         sub_gdf.hist('bdtopo_bat_hauteur_mean', bins=20)
         plt.title(f"Histogramme de la hauteur des batiments de la ville {postal_code}")
