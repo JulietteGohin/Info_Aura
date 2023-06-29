@@ -28,11 +28,11 @@ class Data:
     def clear_data(self):
         """
         Deleting the uninteresting layers, keeping only 'batiment_groupe_compil'
-
+        
         ---
         Output : light_data.gpkg
         """
-        # The long step is to write in the new file...
+        # OK but very long to run...The long step is to write in the new file...
 
         light_data = 'Info_Aura\light_building.gpkg'
 
@@ -47,9 +47,10 @@ class Data:
         return light_data
 
 
+
     def attributes(self, light_data):
         '''
-        Showing all the attributes of the layer 'batiment_groupe_compil'
+        Showing all the attributes of the layer
         
         ---
         Parameters:
@@ -83,6 +84,9 @@ class Data:
         return minimal_data
 
 
+    
+
+
 
 
 class Stats:
@@ -101,6 +105,16 @@ class Stats:
             print('Format de fichier incompatible')
         self.gdf = self.gdf[['batiment_groupe_id','code_departement_insee','code_iris','code_commune_insee','libelle_commune_insee', 'bdtopo_bat_l_nature','bdtopo_bat_l_usage_1','bdtopo_bat_l_usage_2','bdtopo_bat_hauteur_mean','dle_elec_2020_conso_res','dle_elec_2020_conso_pro', 'dle_elec_2020_conso_tot','dle_gaz_2020_conso_res','dle_gaz_2020_conso_pro','dle_gaz_2020_conso_tot','dpe_nb_classe_ener_a','dpe_nb_classe_ener_b','dpe_nb_classe_ener_c','dpe_nb_classe_ener_d','dpe_nb_classe_ener_e','dpe_nb_classe_ener_f','dpe_nb_classe_ener_g','dpe_nb_classe_ener_nc','dpe_nb_classe_ges_a','dpe_nb_classe_ges_b','dpe_nb_classe_ges_c','dpe_nb_classe_ges_d','dpe_nb_classe_ges_e','dpe_nb_classe_ges_f','dpe_nb_classe_ges_g','dpe_nb_classe_ges_nc','dpe_conso_ener_mean','dpe_estim_ges_mean','dpe_conso_ener_std','dpe_estim_ges_std','dpe_conso_ener_min','dpe_estim_ges_min','dpe_l_ch_gen_princ','dpe_l_ecs_gen_princ','dpe_logtype_dpe_id','dpe_logtype_ch_gen_lib_princ','dpe_logtype_ch_solaire','dpe_logtype_ch_type_inst','dpe_logtype_ecs_gen_lib_princ','dpe_logtype_ecs_solaire','dpe_logtype_ratio_ges_conso','ffo_bat_annee_construction','ffo_bat_nb_log']]
         print(self.gdf)
+
+
+    def city_list(self):
+        """
+        Return an array object with all the cities in the dataset
+        """
+        return self.gdf['code_commune_insee'].unique()
+
+
+        
 
     def hist_height_city(self, postal_code):
         """
