@@ -316,7 +316,7 @@ class Stats:
         ]
         print(self.gdf)
 
-    def chose_graph(self, X_label, Y_label):
+    def chose_graph(self, X_label, Y_label, city):
         "function that choses which graph to display depending on the labels"
         # partie temporaire
         X = np.linspace(0, 2 * np.pi, 100)
@@ -324,7 +324,7 @@ class Stats:
         fig = plt.Figure()
         ax = fig.subplots()
         ax.plot(X, F)
-        ax.set_title(f"{X_label} en fonction de {Y_label}")
+        ax.set_title(f"{X_label} en fonction de {Y_label} à {city}. ")
         return fig
 
     def city_list(self) -> np.ndarray:

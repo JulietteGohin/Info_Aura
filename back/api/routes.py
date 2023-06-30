@@ -13,21 +13,24 @@ site_name = "http://localhost:3000/"
 
 ### loading the data
 p = pathlib.Path(__file__).parent.absolute()
-parent_path = p.parent.parent.absolute()
-module_path = parent_path / "data_viz.py"
+PARENT_PATH = p.parent.parent.absolute()
+MODULE_PATH = PARENT_PATH / "data_viz.py"
+PICTURES_PATH = PARENT_PATH / "front" / "public" / "pictures"
 
 import importlib.util
 
 print("loading data...")
 # Load the module from the file path
-spec = importlib.util.spec_from_file_location("your_module", module_path)
+spec = importlib.util.spec_from_file_location("your_module", MODULE_PATH)
 
 data_viz = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(data_viz)
 
 
-data = data_viz.Stats(parent_path / "light_building.gpkg")
-city_list = edit_city_list(data.city_list())
+FILE_DATA = data_viz.Stats(
+    PARENT_PATH / "light_building.gpkg"
+)  # takes a long time to load
+city_list = edit_city_list(FILE_DATA.city_list())
 print(city_list)
 """
     Flask-Restx models for api request and response data
@@ -53,13 +56,25 @@ building_edit_model = rest_api.model(
 
 @rest_api.route("/api/receive")
 class Receive(Resource):
+    """
+    Receives instructions of plotting from the front and creates a graph
+    """
+
     def post(self):
         data = request.json
+        """with open("data.txt", "w") as f:
+            f.write(str(data))"""
+
         d = dict(data)
         keys = list(d.keys())
-        if "filename" in keys:
-            filename = d["filename"]
-            graph(filename)
+        print("data received", data, "keys are", keys)
+        city_name = d["city_name"].split("(")[0][:-1]
+
+        X_indicator = d["XIndicator"]
+        Y_indicator = d["YIndicator"]
+
+        img = FILE_DATA.chose_graph(X_indicator, Y_indicator, city_name)
+        img.savefig(PICTURES_PATH / f"{city_name}.png")
 
         return jsonify({"status": "success", "message": "Data received"})
 
