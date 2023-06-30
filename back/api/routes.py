@@ -3,16 +3,32 @@ from flask_restx import Resource, fields, Api
 from .models import Building
 from flask import jsonify
 from graph_generator import graph
-from .data import items
-
-
-host_name = "http://localhost:5000/api/"
-site_name = "http://localhost:3000/"
+from .functions import *
+import pathlib
 
 
 rest_api = Api(version="1.0", title="miniprojet API")
+host_name = "http://localhost:5000/api/"
+site_name = "http://localhost:3000/"
+
+### loading the data
+p = pathlib.Path(__file__).parent.absolute()
+parent_path = p.parent.parent.absolute()
+module_path = parent_path / "data_viz.py"
+
+import importlib.util
+
+print("loading data...")
+# Load the module from the file path
+spec = importlib.util.spec_from_file_location("your_module", module_path)
+
+data_viz = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(data_viz)
 
 
+data = data_viz.Stats(parent_path / "light_building.gpkg")
+city_list = edit_city_list(data.city_list())
+print(city_list)
 """
     Flask-Restx models for api request and response data
 """
@@ -51,11 +67,10 @@ class Receive(Resource):
 @rest_api.route("/api/searchbar/list")
 class ListBuildings(Resource):
     """
-    Returns a list of all countries
+    Returns a list of all cities
     """
 
-    data = items
-    # data = items
+    data = city_list
 
     def get(self):
         return jsonify(self.data)
