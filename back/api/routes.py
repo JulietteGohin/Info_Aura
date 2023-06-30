@@ -14,7 +14,7 @@ site_name = "http://localhost:3000/"
 ### loading the data
 p = pathlib.Path(__file__).parent.absolute()
 PARENT_PATH = p.parent.parent.absolute()
-MODULE_PATH = PARENT_PATH / "data_viz.py"
+MODULE_PATH = PARENT_PATH / "dep34.py"
 PICTURES_PATH = PARENT_PATH / "front" / "public" / "pictures"
 
 import importlib.util
@@ -67,7 +67,7 @@ class Receive(Resource):
 
         d = dict(data)
         keys = list(d.keys())
-        print("data received", data, "keys are", keys)
+        print("data received", data)
         city_name = d["city_name"].split("(")[0]
 
         X_indicator = d["XIndicator"]

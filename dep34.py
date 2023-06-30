@@ -65,10 +65,6 @@ class Data:
         return list_columns, len(list_columns)
 
 
-
-
-
-
 class Stats:
     def __init__(self, data: str):
         # data can be gpkg or csv
@@ -134,41 +130,50 @@ class Stats:
                 "ffo_bat_nb_log",
             ]
         ]
-        
 
     def chose_graph(self, X_label, Y_label, city_name):
         """
         function that choses which graph to display depending on the labels
         """
+        Y_INDICATORS_LIST = [
+            "DPE G.E.S.",
+            "DPE énergie",
+            "Hauteur",
+            "Ratio G.E.S./énergie",
+        ]
+        X_INDICATORS_LIST = ["vitrage", "age batiment", "pas de correlation"]
+
         fig = None
-        if X_label == "pas de corrélation":
-            if Y_label == "DPE_GES":
+        if X_label == "pas de correlation":
+            if Y_label == "DPE G.E.S.":
                 fig = self.dpe_ges_city(city_name)
-            elif Y_label == "DPE_CONSO":
+            elif Y_label == "DPE énergie":
                 fig = self.dpe_departement_city(city_name)
-            else : 
+            else:
                 fig = self.hist_city(city_name, Y_label)
         elif X_label == "vitrage":
             fig = self.conso_ges_selon_vitrage()
-        elif X_label == "age bat":
-            fig = self.correlation_indicateur_annee(Y_label)
+        elif X_label == "age batiment":
+            if Y_label == "DPE G.E.S.":
+                Y_label = "DPE_GES"
+            elif Y_label == "DPE énergie":
+                Y_label = "DPE_conso"
+
+                fig = self.correlation_indicateur_annee(Y_label)
         return fig
-    
 
     def show_graph(self, fig):
         """
         Display the chosen graph
 
         ---
-        Parameter: 
+        Parameter:
         fig : returned by the function 'chose_graph'
         """
         if fig is not None:
             fig.show()
-        else: 
+        else:
             print("Pas de graphique disponible")
-
-
 
     def city_list(self):
         """
@@ -176,39 +181,39 @@ class Stats:
         """
         return self.gdf["libelle_commune_insee"].unique()
 
-
     def hist_city(self, city_name, indicateur):
         """
-        Display the histogramme of the building's height in the chosen city 
+        Display the histogramme of the building's height in the chosen city
 
         ---
         Parameters:
         city_name : str
         indicateur : str, can be 'hauteur' or 'ratio CO2/energie'
 
-        --- 
+        ---
         Output:
-        fig containing histogramme 
+        fig containing histogramme
         """
-        gdf = self.gdf.groupby(by='libelle_commune_insee') 
-        sub_gdf = gdf.get_group(city_name) 
+        gdf = self.gdf.groupby(by="libelle_commune_insee")
+        sub_gdf = gdf.get_group(city_name)
 
         fig, ax = plt.subplots()
 
-        if indicateur == 'hauteur':
-            ax.hist(sub_gdf['bdtopo_bat_hauteur_mean'], bins=20)
-            ax.set_title(f"Histogramme de la hauteur des batiments de la ville {city_name}")
+        if indicateur == "hauteur":
+            ax.hist(sub_gdf["bdtopo_bat_hauteur_mean"], bins=20)
+            ax.set_title(
+                f"Histogramme de la hauteur des batiments de la ville {city_name}"
+            )
             ax.set_xlabel("Hauteur des batiments (m)")
             ax.set_ylabel("Nombre de batiments")
-        elif indicateur == 'ratio CO2/energie':
-            ax.hist(sub_gdf['dpe_logtype_ratio_ges_conso'], bins=20)
-            ax.set_title(f"Histogramme du ratio CO2/energie des batiments de la ville {city_name}")
+        elif indicateur == "ratio CO2/energie":
+            ax.hist(sub_gdf["dpe_logtype_ratio_ges_conso"], bins=20)
+            ax.set_title(
+                f"Histogramme du ratio CO2/energie des batiments de la ville {city_name}"
+            )
             ax.set_xlabel("Ratio CO2/energie")
             ax.set_ylabel("Nombre de batiments")
         return fig
-
-    
-
 
     def mean_height_city(self, city_name):
         """
@@ -278,7 +283,6 @@ class Stats:
 
         return fig
 
-
     def conso_ges_selon_vitrage(self):
         """
         Display boxplot of the ratio conso/ges with type_vitrage in abscisse
@@ -291,24 +295,30 @@ class Stats:
         Output:
         fig containing boxplot
         """
-        
-        df = self.gdf[['dpe_logtype_baie_type_vitrage', 'dpe_logtype_ratio_ges_conso']].dropna()
-        
+
+        df = self.gdf[
+            ["dpe_logtype_baie_type_vitrage", "dpe_logtype_ratio_ges_conso"]
+        ].dropna()
+
         # Créer un dictionnaire pour stocker les données de chaque catégorie
         category_data = {}
-        for category, group in df.groupby('dpe_logtype_baie_type_vitrage'):
+        for category, group in df.groupby("dpe_logtype_baie_type_vitrage"):
             if type(category) == str:
-                category_data[category] = group['dpe_logtype_ratio_ges_conso']
+                category_data[category] = group["dpe_logtype_ratio_ges_conso"]
 
         # Créer une liste de valeurs pour chaque catégorie (y compris les valeurs manquantes)
-        values = [category_data.get(category, np.array([])) for category in self.gdf['dpe_logtype_baie_type_vitrage'].dropna().unique()]
+        values = [
+            category_data.get(category, np.array([]))
+            for category in self.gdf["dpe_logtype_baie_type_vitrage"].dropna().unique()
+        ]
 
         fig, ax = plt.subplots()
-        ax.boxplot(values, labels=self.gdf['dpe_logtype_baie_type_vitrage'].dropna().unique())
-        ax.set_ylabel('Ratio émission/consommation')
-        ax.set_xlabel('Type de vitrage')
+        ax.boxplot(
+            values, labels=self.gdf["dpe_logtype_baie_type_vitrage"].dropna().unique()
+        )
+        ax.set_ylabel("Ratio émission/consommation")
+        ax.set_xlabel("Type de vitrage")
         return fig
-
 
     def correlation_indicateur_annee(self, indicateur):
         """
@@ -324,15 +334,17 @@ class Stats:
         gdf = self.gdf
         gdf_iris = gdf.groupby("code_iris")
         iris = list(gdf_iris.groups.keys())
-        if indicateur == 'hauteur':
-            col = 'bdtopo_bat_hauteur_mean'
-        elif indicateur == 'ratio CO2/energie':
-            col = 'dpe_logtype_ratio_ges_conso'
+        if indicateur == "hauteur":
+            col = "bdtopo_bat_hauteur_mean"
+        elif indicateur == "ratio CO2/energie":
+            col = "dpe_logtype_ratio_ges_conso"
         indicateur_moyen = []
         annee_moyenne = []
         for iris_code in iris:
             indic_moyen_iris = gdf_iris.get_group(iris_code)[col].mean(axis=0)
-            annee_moyenne_iris = gdf_iris.get_group(iris_code)["ffo_bat_annee_construction"].mean(axis=0)
+            annee_moyenne_iris = gdf_iris.get_group(iris_code)[
+                "ffo_bat_annee_construction"
+            ].mean(axis=0)
             indicateur_moyen.append(indic_moyen_iris)
             annee_moyenne.append(annee_moyenne_iris)
         indicateur_moyen = np.array(indicateur_moyen)
@@ -373,17 +385,16 @@ class Stats:
         fig, ax = plt.subplots()
         ax.pie(dpe_gdf, labels=dpe_gdf.index, autopct="%1.1f%%", shadow=True)
         ax.set_ylabel("DPE émissions de GES")
-        plt.title(f"Répartition des indicateurs DPE émissions de GES dans la ville {city_name}")
+        plt.title(
+            f"Répartition des indicateurs DPE émissions de GES dans la ville {city_name}"
+        )
         return fig
-
 
 
 def main():
     data = "light_building.gpkg"
     stats = Stats(data)
-    stats.show_graph(stats.chose_graph("pas de corrélation", "DPE_CONSO" , "Lyon"))
-
-    
+    stats.show_graph(stats.chose_graph("pas de corrélation", "DPE_CONSO", "Lyon"))
 
 
 main()

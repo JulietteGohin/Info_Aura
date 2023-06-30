@@ -12,7 +12,7 @@ const Y_INDICATORS_LIST = [
   "Hauteur",
   "Ratio G.E.S./énergie",
 ];
-const X_INDICATORS_LIST = ["vitrage", "age batiment", "rien"];
+const X_INDICATORS_LIST = ["vitrage", "age batiment", "pas de correlation"];
 
 let Buildings_list = [];
 /*fonction pour afficher les données du serveur" */
