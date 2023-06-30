@@ -68,7 +68,7 @@ class Receive(Resource):
         d = dict(data)
         keys = list(d.keys())
         print("data received", data, "keys are", keys)
-        city_name = d["city_name"].split("(")[0][:-1]
+        city_name = d["city_name"].split("(")[0]
 
         X_indicator = d["XIndicator"]
         Y_indicator = d["YIndicator"]

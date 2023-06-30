@@ -141,17 +141,17 @@ export default function Home() {
     );
 
     setFilteredCities(filtered);
-    //setCity_name(filteredCities[filtered].nom); if we want to have just the name
-    //else (with postal code) Lyon (jbjbj) for example
-    setCity_name(nom);
   };
   const onSelect = (selected) => {
     // it is triggered when an item is selected from the search box
     console.log("selected: ", selected.item);
     const nom = selected.item.label;
     //sendData({ type: "filename", filename: selected.item.label });
-
-    setImageSrc("/pictures/" + nom + ".png");
+    setCity_name(nom);
+    const nom_clean = nom.split("(")[0].trim(); //on enlève le code postal
+    setImageSrc("/pictures/" + nom_clean + ".png");
+    console.log("city_name: ", city_name);
+    console.log("imageSrc: ", imageSrc);
 
     if (Buildings_list.length >= 5) {
       Buildings_list.shift();
