@@ -1,12 +1,12 @@
 /* Body */
 
-.body{
-  background-image: url("background.jpg");
-}
+  
 
 
 .main {
   font-size: 1.1em;
+  background-image: url("background.jpg");
+  font-family: 'Trebuchet MS', sans-serif;
 }
 
 .grid_container {
@@ -40,25 +40,100 @@
 }
 
 .history {
+  text-align: left;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+.li_history{
+  margin: 0;
+  padding:0;
+  display: inline;
+  padding-right: 2% ;
+  padding-left: 2%;
+  
+}
+.ul_history{
+  list-style-type: none;
+  background-color: aliceblue;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  width: 100%;
+  display: none;
+}
+.img_history{
+  width: 16%;
+  height: auto;
+}
+
+.ullist{
+ display: none;
+}
+.ullist_title{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
   text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 5%;
 }
 
 .image {
   display: block;
+  width: 60%;
+  height: auto;
   margin-left: auto;
   margin-right: auto;
 }
+
+
+
+
+/* Left */
+.left{
+  margin-top: 5%;
+}
+  /* Search bar*/
+
+.search{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin-left: 5%;
+  margin-bottom: 50px;
+  
+}
+.search_bar{
+  margin-top: 50px ;
+}
+  /* Button */
+
+.list{
+  margin-top: 5%;
+}
+
+/* Right */
 
 .graphe{
   background-color: aliceblue;
   border-radius: 50px;
 }
 
-.list{
+.title{
   text-align: center;
+  padding-top: 3%;
 }
-
-
+.texte{
+  text-align: center;
+  padding-top: 2%;
+  padding-bottom: 3%;
+}
 
 /* Menu */
 
@@ -68,13 +143,11 @@
   overflow-x: auto;
   padding: 10px 0;
   white-space: nowrap;
-  
   background-color: rgb(0, 0, 0);
-
-  margin-top: 100px;
+  margin-top: 1%;
   padding-right: 4%;
   padding-left: 4%;
-  margin-bottom: 50px;
+  margin-bottom: 1%;
 }
 
 .menuItem:hover{
@@ -95,8 +168,8 @@
 }
 
 .menuItem.active {
-  background-color: blue;
-  color: aliceblue;;
+  background-color: aliceblue;
+  color: black;
 }
 
 /* footer */
@@ -105,11 +178,9 @@
 {
   background-color:#26272b;
   color:#737373;
-  
 }
 
 .footer_links{
-  
   list-style: none;
 }
 
@@ -129,13 +200,19 @@
 }
 
 .data_gouv{
-  width: 10%;
+  width: 50%;
   height: auto;
+  float: center;
+}
+
+.data_gouv_ensemble{
+  text-align: right;
+  padding-right: 10%;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 40% 30% auto;
+  grid-template-columns: 40% 40% auto;
   background-color: #2196F3;
   padding: 10px;
 }
@@ -143,9 +220,6 @@
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(0, 0, 0, 0.8);
   padding-left: 40px;
-  font-size: 30px;
+  font-size: 0.9em;
   text-align: left;
-}
-.data_gouv_ensemble{
-  text-align: right;
 }

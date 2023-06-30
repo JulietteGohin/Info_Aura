@@ -35,13 +35,7 @@ const Menu = ({ items, activeItem, setActiveItem }) => {
         </a>
       ))}
       {/* Render a line to indicate the active menu item */}
-      <div
-        className={styles.line}
-        style={{
-          width: `${itemWidth}%`,
-          transform: `translateX(${activeItem * itemWidth + scrollPosition}px)`,
-        }}
-      />
+      
     </div>
   );
 };
