@@ -1,4 +1,4 @@
- import Head from "next/head";
+import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import { useEffect, useState } from "react";
 import Menu from "./Menu";
@@ -6,8 +6,6 @@ import ReactSearchBox from "react-search-box";
 
 /* variables fixes*/
 
-const host_name = "http://localhost:5000/api/";
-const site_name = "http://localhost:3000/";
 const menuItems = ["A", "B", "C", "D","E","F"];
 let Buildings_list= []
 /*fonction pour afficher les données du serveur" */
@@ -136,7 +134,7 @@ export default function Home() {
     // it is triggered when an item is selected from the search box
     console.log("selected: ", selected.item);
     const nom = selected.item.label;
-    sendData(selected.item);
+    sendData({ type: "filename", filename: selected.item.label });
 
     setImageSrc("/pictures/" + nom + ".png");
    
