@@ -6,7 +6,11 @@ import ReactSearchBox from "react-search-box";
 
 /* variables fixes*/
 
-const menuItems = ["A", "B", "C", "D","E","F"];
+const menuItems = ["A", "B", "C", "D"];
+const menuItems_A = ["A", "B"];
+const menuItems_B = [];
+const menuItems_C = ["B"];
+const menuItems_D = ["AB"];
 let Buildings_list= []
 /*fonction pour afficher les données du serveur" */
 
@@ -171,7 +175,11 @@ export default function Home() {
               <Menu
                 items={menuItems}
                 activeItem={activeIndicator}
-                setActiveItem={setActiveIndicator}  
+                setActiveItem={setActiveIndicator}
+                list_0={menuItems_A}  
+                list_1={menuItems_B}
+                list_2={menuItems_C}
+                list_3={menuItems_D}
                 />
             </div>
             <div className={styles.grid_container}>
