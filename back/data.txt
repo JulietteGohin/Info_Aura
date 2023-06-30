@@ -1,1 +1,1 @@
-[    { "id": 1, "value": "Belgium",     "continent": "Europe" },    { "id": 2, "value": "India",       "continent": "Asia" }]
+{'city_name': '', 'XIndicator': 'age batiment', 'YIndicator': 'DPE énergie'}

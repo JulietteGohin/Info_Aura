@@ -4,7 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 import os, json
-
+import logging
 from flask import Flask
 from flask_cors import CORS
 
@@ -18,6 +18,13 @@ app.config.from_object("api.config.BaseConfig")
 db.init_app(app)
 rest_api.init_app(app)
 CORS(app)
+
+"""app.logger.setLevel(logging.INFO)
+
+# Add a stream handler to direct the logs to stdout
+stream_handler = logging.StreamHandler()
+app.logger.addHandler(stream_handler)
+"""
 
 
 # Setup database
