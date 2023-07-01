@@ -66,10 +66,10 @@ class Data:
 
 
 class Stats:
-    def __init__(self, data: str):
+    def __init__(self, filepath):
         # data can be gpkg or csv
 
-        self.data = data
+        self.data = str(filepath)
         file_format = self.data.split(".")[-1]
         if file_format == "csv":
             self.gdf = pd.read_csv(self.data, low_memory=False)
@@ -84,7 +84,6 @@ class Stats:
                 "code_iris",
                 "code_commune_insee",
                 "libelle_commune_insee",
-                # now indicators
                 "bdtopo_bat_l_nature",
                 "bdtopo_bat_l_usage_1",
                 "bdtopo_bat_l_usage_2",
@@ -135,31 +134,20 @@ class Stats:
         """
         function that choses which graph to display depending on the labels
         """
-        Y_INDICATORS_LIST = [
-            "DPE G.E.S.",
-            "DPE énergie",
-            "Hauteur",
-            "Ratio G.E.S./énergie",
-        ]
-        X_INDICATORS_LIST = ["vitrage", "age batiment", "pas de correlation"]
 
         fig = None
-        if X_label == "pas de correlation":
-            if Y_label == "DPE G.E.S.":
+
+        if X_label == "pas de corrélation":
+            if Y_label == "DPE_GES":
                 fig = self.dpe_ges_city(city_name)
-            elif Y_label == "DPE énergie":
+            elif Y_label == "DPE_CONSO":
                 fig = self.dpe_departement_city(city_name)
             else:
                 fig = self.hist_city(city_name, Y_label)
         elif X_label == "vitrage":
             fig = self.conso_ges_selon_vitrage()
         elif X_label == "age batiment":
-            if Y_label == "DPE G.E.S.":
-                Y_label = "DPE_GES"
-            elif Y_label == "DPE énergie":
-                Y_label = "DPE_conso"
-
-                fig = self.correlation_indicateur_annee(Y_label)
+            fig = self.correlation_indicateur_annee(Y_label)
         return fig
 
     def show_graph(self, fig):
@@ -391,10 +379,7 @@ class Stats:
         return fig
 
 
-def main():
+"""def main():
     data = "light_building.gpkg"
     stats = Stats(data)
-    stats.show_graph(stats.chose_graph("pas de corrélation", "DPE_CONSO", "Lyon"))
-
-
-main()
+    stats.show_graph(stats.chose_graph("pas de corrélation", "DPE_CONSO", "Lyon"))"""

@@ -5,14 +5,22 @@ import Menu from "./Menu";
 import ReactSearchBox from "react-search-box";
 
 /* variables fixes*/
+const IMAGE_NAMES = [
+  "image1.png",
+  "image2.png",
+  "image3.png",
+  "image4.png",
+  "image5.png",
+];
+let current_image_indice = 0;
 
 const Y_INDICATORS_LIST = [
-  "DPE G.E.S.",
-  "DPE énergie",
-  "Hauteur",
-  "Ratio G.E.S./énergie",
+  "DPE_CONSO",
+  "DPE_GES",
+  "hauteur",
+  "ratio CO2/energie",
 ];
-const X_INDICATORS_LIST = ["vitrage", "age batiment", "pas de correlation"];
+const X_INDICATORS_LIST = ["vitrage", "age batiment", "pas de corrélation"];
 
 let Buildings_list = [];
 /*fonction pour afficher les données du serveur" */
@@ -148,10 +156,7 @@ export default function Home() {
     const nom = selected.item.label;
     //sendData({ type: "filename", filename: selected.item.label });
     setCity_name(nom);
-    const nom_clean = nom.split("(")[0].trim(); //on enlève le code postal
-    setImageSrc("/pictures/" + nom_clean + ".png");
-    console.log("city_name: ", city_name);
-    console.log("imageSrc: ", imageSrc);
+    // const nom_clean = nom.split("(")[0].trim(); //on enlève le code postal
 
     if (Buildings_list.length >= 5) {
       Buildings_list.shift();
@@ -161,7 +166,7 @@ export default function Home() {
     }
   };
   const cityOptions = filteredCities.map((city) => ({
-    value: `${city.nom} (${city.code_postal})`,
+    value: `${city.nom} `, //(${city.code_postal})
     label: `${city.nom}`,
   }));
   const handleButtonClick = () => {
@@ -170,11 +175,15 @@ export default function Home() {
       Y_INDICATORS_LIST[YIndicator],
       city_name
     );
-    setImageSrc("/pictures/" + city_name + ".png");
+
+    setImageSrc("/pictures/" + IMAGE_NAMES[current_image_indice]);
+    current_image_indice = (current_image_indice + 1) % IMAGE_NAMES.length;
+    console.log("imageSrc: ", imageSrc);
     sendData({
       city_name: city_name,
       XIndicator: X_INDICATORS_LIST[XIndicator],
       YIndicator: Y_INDICATORS_LIST[YIndicator],
+      imageSrc: imageSrc,
     });
   };
   return (
