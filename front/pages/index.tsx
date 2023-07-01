@@ -155,9 +155,9 @@ export default function Home() {
 
     if (Buildings_list.length >= 5) {
       Buildings_list.shift();
-      Buildings_list.push("/pictures/" + nom + ".png");
+      Buildings_list.push("/pictures/" + nom_clean + ".png");
     } else {
-      Buildings_list.push("/pictures/" + nom + ".png");
+      Buildings_list.push("/pictures/" + nom_clean + ".png");
     }
   };
   const cityOptions = filteredCities.map((city) => ({

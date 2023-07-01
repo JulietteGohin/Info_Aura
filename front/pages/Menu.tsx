@@ -18,7 +18,7 @@ const Menu = ({ items, activeItem, setActiveItem, list_0, list_1, list_2, list_3
     };
   }, []);
 
-  function sub_menu(index) {
+ /* function sub_menu(index) {
     console.log(sub_list,index);
     switch (index) {
       case 0:
@@ -42,7 +42,7 @@ const Menu = ({ items, activeItem, setActiveItem, list_0, list_1, list_2, list_3
 
     // Step 3: Update the content of the <div> element
     divElement.innerHTML = "Updated content";
-  }
+  }*/
   
 
   // Calculate the width of each menu item based on the number of items
@@ -60,7 +60,7 @@ const Menu = ({ items, activeItem, setActiveItem, list_0, list_1, list_2, list_3
             }`}
             style={{ width: `${itemWidth}%` }}
             
-            onClick={() => {sub_menu(index),setActiveItem(index),updateDiv()}}
+            onClick={() => {/*sub_menu(index),updateDiv(),*/setActiveItem(index)}}
             /*onClick={() => }
             onClick={() => }*/
           >
@@ -68,7 +68,7 @@ const Menu = ({ items, activeItem, setActiveItem, list_0, list_1, list_2, list_3
           </a>
         ))} 
       </div>
-      <div id='sub_menu' className={styles.menu}>
+      {/*<div id='sub_menu' className={styles.menu}>
         {sub_list.map((sub_item, sub_index) => (
           <a
             key={sub_index}
@@ -81,7 +81,7 @@ const Menu = ({ items, activeItem, setActiveItem, list_0, list_1, list_2, list_3
             {sub_item}
           </a>
         ))}
-      </div>
+      </div>*/}
     </>
   );
 };
