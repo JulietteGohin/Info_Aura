@@ -209,14 +209,16 @@ export default function Home() {
               setActiveItem={setYIndicator}
             />
           </div>
-          <h3>Indicateur abscisse</h3>
-        </div>
-        <div>
-          <Menu
-            items={X_INDICATORS_LIST}
-            activeItem={XIndicator}
-            setActiveItem={setXIndicator}
-          />
+          <div className={styles.sub_header}>
+            <h2>Indicateur abscisse</h2>
+          </div>
+          <div>
+            <Menu
+              items={X_INDICATORS_LIST}
+              activeItem={XIndicator}
+              setActiveItem={setXIndicator}
+            />
+          </div>
         </div>
         <div className={styles.grid_container}>
           <div className={styles.item}>
