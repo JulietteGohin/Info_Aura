@@ -15,7 +15,7 @@ site_name = "http://localhost:3000/"
 p = pathlib.Path(__file__).parent.absolute()
 PARENT_PATH = p.parent.parent.absolute()
 MODULE_PATH = PARENT_PATH / "dep34.py"
-PICTURES_PATH = PARENT_PATH / "front" / "public" / "pictures"
+PUBLIC_PATH = PARENT_PATH / "front" / "public"
 
 import importlib.util
 
@@ -26,10 +26,9 @@ spec = importlib.util.spec_from_file_location("your_module", MODULE_PATH)
 data_viz = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(data_viz)
 
-
-FILE_DATA = data_viz.Stats(
-    PARENT_PATH / "light_building.gpkg"
-)  # takes a long time to load
+print(MODULE_PATH)
+FILE_DATA = data_viz.Stats(PARENT_PATH / "light_building.gpkg")
+# takes a long time to load
 city_list = edit_city_list(FILE_DATA.city_list())
 print(city_list)
 """
@@ -68,13 +67,15 @@ class Receive(Resource):
         d = dict(data)
         keys = list(d.keys())
         print("data received", data)
-        city_name = d["city_name"].split("(")[0]
+        city_name = d["city_name"].split("(")[0].strip()
 
         X_indicator = d["XIndicator"]
         Y_indicator = d["YIndicator"]
+        imageSrc = str(d["imageSrc"]).split("/")[-1]
 
         img = FILE_DATA.chose_graph(X_indicator, Y_indicator, city_name)
-        img.savefig(PICTURES_PATH / f"{city_name}.png")
+        print(PUBLIC_PATH / "pictures" / imageSrc)
+        img.savefig(PUBLIC_PATH / "pictures" / imageSrc)
 
         return jsonify({"status": "success", "message": "Data received"})
 
