@@ -176,12 +176,63 @@
 
 .footer
 {
-  background-color:#26272b;
+  background-color: #2196F3;
   color:#737373;
 }
 
 .footer_links{
   list-style: none;
+}
+
+
+.grid {
+  display: grid;
+  grid-template-columns: 30% 25% 20% auto;
+  padding: 10px;
+}
+.item_footer {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  font-size: 0.9em;
+  text-align: left;
+}
+
+/*footer left*/
+.contact{
+  padding:1%;
+}
+
+.article{
+  columns: 2;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.right_footer{
+  text-align: right;
+  
+}
+.left_footer{
+  text-align: left;
+  margin-left: 5%;
+}
+
+.icon_container{
+  text-align: right;
+  align-items: center;
+  margin-right: 25%;
+}
+
+.icon{
+  width: 10%;
+  height: auto; 
+}
+/*footer center*/
+
+.padding{
+  padding-left: 4%;
+  padding-right: 4%;
+  line-height: 1.5em;
 }
 
 .row{
@@ -199,27 +250,43 @@
   color: hotpink;
 }
 
+/*Easter Egg*/
+
+.item_footer_egg{
+  background-color: black;
+  color: aliceblue;
+  text-align: center;
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+.egg{
+  margin-top: 20%;
+  margin-bottom: auto;
+}
+.egg_img{
+  width:0.5%;
+  height: auto;
+  position: absolute;
+  top: 17%;
+  left: 5%;
+}
+/*footer right*/
+
 .data_gouv{
   width: 50%;
   height: auto;
-  float: center;
 }
 
 .data_gouv_ensemble{
   text-align: right;
-  padding-right: 10%;
+  display: block;
+  padding-right: 5%;
+  line-height: 1.2em;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 40% 40% auto;
-  background-color: #2196F3;
-  padding: 10px;
-}
-.item_footer {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  padding-left: 40px;
-  font-size: 0.9em;
-  text-align: left;
+/*footer bottom*/
+
+.footer_bottom{
+  text-align: center;
+  padding: 1%;
 }

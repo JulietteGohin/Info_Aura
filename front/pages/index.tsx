@@ -156,14 +156,30 @@ export default function Home() {
     const nom = selected.item.label;
     //sendData({ type: "filename", filename: selected.item.label });
     setCity_name(nom);
+    console.log(
+      X_INDICATORS_LIST[XIndicator],
+      Y_INDICATORS_LIST[YIndicator],
+      city_name
+    );
+    setImageSrc("/pictures/" + IMAGE_NAMES[current_image_indice]);
+    current_image_indice = (current_image_indice + 1) % IMAGE_NAMES.length;
+    console.log("imageSrc: ", imageSrc);
+    sendData({
+      city_name: city_name,
+      XIndicator: X_INDICATORS_LIST[XIndicator],
+      YIndicator: Y_INDICATORS_LIST[YIndicator],
+      imageSrc: imageSrc,
+    });
     // const nom_clean = nom.split("(")[0].trim(); //on enlève le code postal
 
     if (Buildings_list.length >= 5) {
       Buildings_list.shift();
-      Buildings_list.push("/pictures/" + nom_clean + ".png");
+      Buildings_list.push("/pictures/" + IMAGE_NAMES[current_image_indice]);
     } else {
-      Buildings_list.push("/pictures/" + nom_clean + ".png");
+      Buildings_list.push("/pictures/" + IMAGE_NAMES[current_image_indice]);
     }
+
+
   };
   const cityOptions = filteredCities.map((city) => ({
     value: `${city.nom} `, //(${city.code_postal})
@@ -263,42 +279,49 @@ export default function Home() {
         <footer className={styles.footer}>
           <div className={styles.grid}>
             <div className={styles.item_footer}>
-              <h3>Authors :</h3>
-              <ul>
-                <li>Emile Chazot</li>
-                <li>Juliette Gohin</li>
-                <li>Tristan Montalbetti</li>
-                <li>Jeanne Mirone</li>
-              </ul>
+              <div className={styles.contact}>
+                <h3>Contacts :</h3>
+                  <article className={styles.article}><div className={styles.left_footer}><p>Emile Chazot : </p></div><div className={styles.right_footer}><a href = "mailto: emile.chazot@etu.minesparis.psl.eu" className={styles.icon_container}><img src="/envelope.png" alt="envelope" className={styles.icon}></img></a><a href="https://www.linkedin.com/in/emile-chazot-8abab5253/"  target="_blank" rel="noopener noreferrer" className={styles.icon_container}><img src="/linkedin.png" alt="linkedin" className={styles.icon}></img></a></div></article>
+                  <article className={styles.article}><div className={styles.left_footer}><p>Juliette Gohin: </p></div><div className={styles.right_footer}><a href = "mailto: juliette.gohin@etu.minesparis.psl.eu" className={styles.icon_container}><img src="/envelope.png" alt="envelope" className={styles.icon}></img></a><a href="https://www.linkedin.com/in/juliette-gohin-7a7328254/" target="_blank" rel="noopener noreferrer" className={styles.icon_container}><img src="/linkedin.png" alt="linkedin" className={styles.icon}></img></a></div></article>
+                  <article className={styles.article}><div className={styles.left_footer}><p>Tristan Montalbetti : </p></div><div className={styles.right_footer}><a href = "mailto: tristan.montalbetti@etu.minesparis.psl.eu" className={styles.icon_container}><img src="/envelope.png" alt="envelope" className={styles.icon}></img></a><a href="https://www.linkedin.com/in/tristan-montalbetti-50b893249/"  target="_blank" rel="noopener noreferrer" className={styles.icon_container}><img src="/linkedin.png" alt="linkedin" className={styles.icon}></img></a></div></article>
+                  <article className={styles.article}><div className={styles.left_footer}><p>Jeanne Mirone : </p></div><div className={styles.right_footer}><a href = "mailto: jeanne.mirone@etu.minesparis.psl.eu" className={styles.icon_container}><img src="/envelope.png" alt="envelope" className={styles.icon}></img></a><a href="https://www.linkedin.com/in/jeanne-mirone-50601a271/" target="_blank" rel="noopener noreferrer" className={styles.icon_container}><img src="/linkedin.png" alt="linkedin" className={styles.icon}></img></a></div></article>
+              </div>
             </div>
             <div className={styles.item_footer}>
-              <h3>Quick Links</h3>
-              <p>
-                Please visit our other page for more information concerning the
-                project
-              </p>
+              <div className={styles.padding}>
+                <h3>Sujet du projet</h3>
+                <p>
+                  Afin de connaître plus sur notre projet veuillez vous dirriger sur notre site annexe. Le site se situe au lien suivant : 
+                  <a href="http://localhost:3000/about/" target="_blank" rel="noopener noreferrer" className={styles.row}> Lien ver le site</a>
+                </p>
+              </div>
+            </div>
+            <div className={styles.item_footer_egg}>
+              <div className={styles.egg}>
+                <h2>Easter EGG</h2>
+                <h3>
+                  Trouver l'œuf noir sur le site
+                </h3>
+                <a href="https://findtheinvisiblecow.com" target="_blank" rel="noopener noreferrer" ><img src="/black_egg.png" alt="black_egg" className={styles.egg_img}></img></a>
+              </div>
             </div>
             <div className={styles.item_footer}>
               <div className={styles.data_gouv_ensemble}>
-                <p>Lien des données d'orgine</p>
-                <a href="https://www.ecologie.gouv.fr/diagnostic-performance-energetique-dpe">
-                  {" "}
-                  <img
-                    src="/data_gouv.png"
-                    alt="data_gouv"
-                    className={styles.data_gouv}
-                  ></img>{" "}
+                <h3>Lien des données d'orgine :</h3>
+                <p>Vous pouvez trouvez l'ensembles des données utilisées dans le projet sur le site data.gouv.</p>
+                <a href="https://www.data.gouv.fr/fr/datasets/?q=dpe" target="_blank" rel="noopener noreferrer">
+                  <img src="/data_gouv.png" alt="data_gouv" className={styles.data_gouv}></img>
                 </a>
               </div>
             </div>
-            <div className="col">
-              <p className={styles.copyright_text}>
-                Copyright &copy; 2017 All Rights Reserved by{" "}
-              </p>
-              <p>
-                We would like to thank Mr for helping us during this project
-              </p>
-            </div>
+          </div>
+          <div className={styles.footer_bottom}>
+            <p className={styles.copyright_text}>
+              Copyright &copy; 2017 All Rights Reserved by{" "}
+            </p>
+            <p>
+              We would like to thank Mr for helping us during this project
+            </p>
           </div>
         </footer>
       </main>
