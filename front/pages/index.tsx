@@ -317,10 +317,10 @@ export default function Home() {
           </div>
           <div className={styles.footer_bottom}>
             <p className={styles.copyright_text}>
-              Copyright &copy; 2017 All Rights Reserved by{" "}
+              Copyright &copy; 2023 All Rights Reserved by Me{" "}
             </p>
             <p>
-              We would like to thank Mr for helping us during this project
+              Nous aimerions remercier Matthieu Denoux de nous avoir accompagné et aidé tout au long de ce projet.
             </p>
           </div>
         </footer>
