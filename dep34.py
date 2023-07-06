@@ -147,16 +147,18 @@ class Stats:
                 fig = self.hist_city(city_name, Y_label)
 
         elif X_label == "vitrage":
-            if Y_label == "hauteur":
-                fig = self.create_empty_graph(X_label, Y_label)
-            else:
+            if Y_label == "ratio CO2/energie":
                 fig = self.conso_ges_selon_vitrage()
 
-        elif X_label == "age batiment":
-            if Y_label == "DPE_GES":
+            else:
                 fig = self.create_empty_graph(X_label, Y_label)
 
-            fig = self.correlation_indicateur_annee(Y_label)
+        elif X_label == "age batiment":
+            if Y_label == "hauteur" or Y_label == "ratio CO2/energie":
+                fig = self.correlation_indicateur_annee(Y_label)
+            else:
+                fig = create_empty_graph(X_label, Y_label)
+
         return fig
 
     def show_graph(self, fig):
