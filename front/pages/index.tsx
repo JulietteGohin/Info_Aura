@@ -145,6 +145,11 @@ export default function Home() {
   }, []);
 
   const imageUrl = `${imageSrc}?timestamp=${timestamp}`;
+  const imageUrl0 = `${Buildings_list[0]}?timestamp=${timestamp}`;
+  const imageUrl1 = `${Buildings_list[1]}?timestamp=${timestamp}`;
+  const imageUrl2 = `${Buildings_list[2]}?timestamp=${timestamp}`;
+  const imageUrl3 = `${Buildings_list[3]}?timestamp=${timestamp}`;
+  const imageUrl4 = `${Buildings_list[4]}?timestamp=${timestamp}`;
 
   /* pour barre de recherche maintenant*/
   useEffect(() => {
@@ -222,7 +227,7 @@ export default function Home() {
       "current_image_indice: ",
       current_image_indice
     );
-    if (Buildings_list.length > 5) {
+    if (Buildings_list.length >= 5) {
       Buildings_list.pop();
       Buildings_list.unshift("/pictures/" + IMAGE_NAMES[current_image_indice]);
     } else {
