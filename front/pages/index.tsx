@@ -6,13 +6,13 @@ import ReactSearchBox from "react-search-box";
 
 /* variables fixes*/
 const IMAGE_NAMES = [
+  "image0.png",
   "image1.png",
   "image2.png",
   "image3.png",
   "image4.png",
-  "image5.png",
 ];
-let current_image_indice = 0;
+let current_image_indice = 1;
 
 const Y_INDICATORS_LIST = [
   "DPE_CONSO",
@@ -127,21 +127,15 @@ export default function Home() {
     { id: number; nom: string; code_postal: string }[]
   >([]);
 
+<<<<<<< HEAD
   const [buildings, setBuildings] = useState([]);
 
   const [imageSrc, setImageSrc] = useState<string>("/pictures/logo-AURA.png");
+=======
+  const [imageSrc, setImageSrc] = useState("/pictures/logo-AURA.png");
+>>>>>>> 15d787f6ea88dd47f514f79bac67dd8626797ad7
   const [data2, setData2] = useState([]);
   /*récupérons les données du serveur */
-  /* d'abord les bâtiments */
-
-  useEffect(() => {
-    fetch("http://localhost:5000/api/buildings/list")
-      .then((res) => res.json())
-      .then((data) => {
-        setBuildings(data.buildings ?? []);
-      });
-    console.log("buildings: ");
-  }, []);
 
   /* pour barre de recherche maintenant*/
 
@@ -181,6 +175,7 @@ export default function Home() {
 
     //sendData({ type: "filename", filename: selected.item.label });
     setCity_name(nom);
+<<<<<<< HEAD
     console.log(
       X_INDICATORS_LIST[XIndicator],
       Y_INDICATORS_LIST[YIndicator],
@@ -196,6 +191,18 @@ export default function Home() {
       imageSrc: imageSrc,
     });*/
     // const nom_clean = nom.split("(")[0].trim(); //on enlève le code postal
+=======
+    setImageSrc(imageSrc);
+    console.log("imageSrc: ", imageSrc);
+
+    /*if (Buildings_list.length >= 5) {
+      Buildings_list.shift();
+      Buildings_list.push("/pictures/" + IMAGE_NAMES[current_image_indice]);
+    } else {
+      Buildings_list.push("/pictures/" + IMAGE_NAMES[current_image_indice]);
+    }*/
+    console.log("current_image_indice: ", current_image_indice);
+>>>>>>> 15d787f6ea88dd47f514f79bac67dd8626797ad7
   };
   const cityOptions = filteredCities.map((city) => ({
     value: `${city.nom} `, //(${city.code_postal})
@@ -207,6 +214,7 @@ export default function Home() {
       Y_INDICATORS_LIST[YIndicator],
       city_name
     );
+<<<<<<< HEAD
 
     setImageSrc("/pictures/" + city_name + ".png");
 
@@ -214,6 +222,18 @@ export default function Home() {
 
     console.log("imageSrc: ", imageSrc);
     await sendData({
+=======
+    current_image_indice = (current_image_indice + 1) % 5;
+    setImageSrc("/pictures/" + IMAGE_NAMES[current_image_indice]);
+    console.log(
+      "imageSrc: ",
+      imageSrc,
+      "current_image_indice: ",
+      current_image_indice
+    );
+
+    sendData({
+>>>>>>> 15d787f6ea88dd47f514f79bac67dd8626797ad7
       city_name: city_name,
       XIndicator: X_INDICATORS_LIST[XIndicator],
       YIndicator: Y_INDICATORS_LIST[YIndicator],
@@ -295,9 +315,7 @@ export default function Home() {
               <div className={styles.graphe}>
                 <h3 className={styles.title}> Graphe d'interprétations</h3>
                 <img src={imageSrc} alt="Image" className={styles.image} />
-                <p className={styles.texte}>
-                  Ces statistiques sont prélevées sur des données
-                </p>
+                <p className={styles.texte}></p>
               </div>
             </div>
           </div>
