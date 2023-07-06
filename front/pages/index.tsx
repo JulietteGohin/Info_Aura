@@ -13,7 +13,7 @@ const IMAGE_NAMES = [
   "image4.png",
 ];
 let current_image_indice = 1;
-
+let alternative_img_source = "/pictures/logo-AURA.png";
 const Y_INDICATORS_LIST = [
   "DPE_CONSO",
   "DPE_GES",
@@ -131,8 +131,19 @@ export default function Home() {
   const [data2, setData2] = useState([]);
   /*récupérons les données du serveur */
 
-  /* pour barre de recherche maintenant*/
+  const [timestamp, setTimestamp] = useState(Date.now());
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimestamp(Date.now());
+    }, 100); // Refresh every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const imageUrl = `${imageSrc}?timestamp=${timestamp}`;
+
+  /* pour barre de recherche maintenant*/
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -182,27 +193,25 @@ export default function Home() {
     value: `${city.nom} `, //(${city.code_postal})
     label: `${city.nom}`,
   }));
-  const handleButtonClick = () => {
-    console.log(
-      X_INDICATORS_LIST[XIndicator],
-      Y_INDICATORS_LIST[YIndicator],
-      city_name
-    );
-    current_image_indice = (current_image_indice + 1) % 5;
-    setImageSrc("/pictures/" + IMAGE_NAMES[current_image_indice]);
-    console.log(
-      "imageSrc: ",
-      imageSrc,
-      "current_image_indice: ",
-      current_image_indice
-    );
 
+  const handleButtonClick = async () => {
+    current_image_indice = (current_image_indice + 1) % 5;
+    //await set_src();
+
+    setImageSrc("/pictures/" + IMAGE_NAMES[current_image_indice]);
+    alternative_img_source = "/pictures/" + IMAGE_NAMES[current_image_indice];
     sendData({
       city_name: city_name,
       XIndicator: X_INDICATORS_LIST[XIndicator],
       YIndicator: Y_INDICATORS_LIST[YIndicator],
-      imageSrc: imageSrc,
+      imageSrc: "/pictures/" + IMAGE_NAMES[current_image_indice],
     });
+
+    console.log(
+      "/pictures/" + IMAGE_NAMES[current_image_indice],
+      "current_image_indice: ",
+      current_image_indice
+    );
   };
   return (
     <>
@@ -271,8 +280,8 @@ export default function Home() {
             <div className={styles.right}>
               <div className={styles.graphe}>
                 <h3 className={styles.title}> Graphe d'interprétations</h3>
-                <img src={imageSrc} alt="Image" className={styles.image} />
-                <p className={styles.texte}></p>
+                <img src={imageUrl} alt="Image" />
+                <p className={styles.texte}> source : {imageSrc}</p>
               </div>
             </div>
           </div>
@@ -464,8 +473,8 @@ export default function Home() {
               Copyright &copy; 2023 All Rights Reserved by Me{" "}
             </p>
             <p>
-              Nous aimerions remercier Matthieu Denoux de nous avoir accompagné
-              et aidé tout au long de ce projet.
+              Nous remercions chaleureusement Matthieu Denoux de nous avoir
+              accompagné et aidé tout au long de ce projet.
             </p>
           </div>
         </footer>
