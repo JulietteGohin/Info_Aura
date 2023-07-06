@@ -1,3 +1,153 @@
-.line{
-    
+.main {
+  font-size: 1.1em;
+  background-image: url("background.jpg");
+  font-family: "Trebuchet MS", sans-serif;
+}
+
+.main section section {
+  background-color: aliceblue;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.grid_container {
+  display: grid;
+  grid-template-columns: 20% 60% auto;
+}
+.item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: 30px;
+  text-align: left;
+}
+.item_side {
+}
+.no_scaled_link {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* footer */
+
+.footer {
+  background-color: #2196f3;
+  color: #737373;
+  font-size: 1.1em;
+
+  font-family: "Trebuchet MS", sans-serif;
+}
+
+.footer_links {
+  list-style: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 30% 25% 20% auto;
+  padding: 10px;
+}
+.item_footer {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  font-size: 0.9em;
+  text-align: left;
+}
+
+/*footer left*/
+.contact {
+  padding: 1%;
+}
+
+.article {
+  columns: 2;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.right_footer {
+  text-align: right;
+}
+.left_footer {
+  text-align: left;
+  margin-left: 5%;
+}
+
+.icon_container {
+  text-align: right;
+  align-items: center;
+  margin-right: 25%;
+}
+
+.icon {
+  width: 10%;
+  height: auto;
+}
+/*footer center*/
+
+.padding {
+  padding-left: 4%;
+  padding-right: 4%;
+  line-height: 1.5em;
+}
+
+.row {
+  text-decoration: none;
+}
+.row:link {
+  color: red;
+}
+
+.row:visited {
+  color: green;
+}
+
+.row:hover {
+  color: hotpink;
+}
+
+/*Easter Egg*/
+
+.item_footer_egg {
+  background-color: black;
+  color: aliceblue;
+  text-align: center;
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+.egg {
+  margin-top: 20%;
+  margin-bottom: auto;
+}
+.egg_img {
+  width: 0.5%;
+  height: auto;
+  position: absolute;
+  top: 17%;
+  left: 5%;
+}
+/*footer right*/
+
+.data_gouv {
+  width: 50%;
+  height: auto;
+}
+
+.data_gouv_ensemble {
+  text-align: right;
+  display: block;
+  padding-right: 5%;
+  line-height: 1.2em;
+}
+
+/*footer bottom*/
+
+.footer_bottom {
+  text-align: center;
+  padding: 1%;
+  color: aliceblue;
 }

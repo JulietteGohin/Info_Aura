@@ -129,7 +129,7 @@ export default function Home() {
 
   const [buildings, setBuildings] = useState([]);
 
-  const [imageSrc, setImageSrc] = useState("/pictures/logo-AURA.png");
+  const [imageSrc, setImageSrc] = useState<string>("/pictures/logo-AURA.png");
   const [data2, setData2] = useState([]);
   /*récupérons les données du serveur */
   /* d'abord les bâtiments */
@@ -177,6 +177,8 @@ export default function Home() {
     // it is triggered when an item is selected from the search box
     console.log("selected: ", selected.item);
     const nom = selected.item.label;
+    setImageSrc("/pictures/" + nom + ".png");
+
     //sendData({ type: "filename", filename: selected.item.label });
     setCity_name(nom);
     console.log(
@@ -194,34 +196,36 @@ export default function Home() {
       imageSrc: imageSrc,
     });*/
     // const nom_clean = nom.split("(")[0].trim(); //on enlève le code postal
-
-    if (Buildings_list.length >= 5) {
-      Buildings_list.shift();
-      Buildings_list.push("/pictures/" + IMAGE_NAMES[current_image_indice]);
-    } else {
-      Buildings_list.push("/pictures/" + IMAGE_NAMES[current_image_indice]);
-    }
   };
   const cityOptions = filteredCities.map((city) => ({
     value: `${city.nom} `, //(${city.code_postal})
     label: `${city.nom}`,
   }));
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     console.log(
       X_INDICATORS_LIST[XIndicator],
       Y_INDICATORS_LIST[YIndicator],
       city_name
     );
 
-    setImageSrc("/pictures/" + IMAGE_NAMES[current_image_indice]);
+    setImageSrc("/pictures/" + city_name + ".png");
+
     current_image_indice = (current_image_indice + 1) % IMAGE_NAMES.length;
+
     console.log("imageSrc: ", imageSrc);
-    sendData({
+    await sendData({
       city_name: city_name,
       XIndicator: X_INDICATORS_LIST[XIndicator],
       YIndicator: Y_INDICATORS_LIST[YIndicator],
       imageSrc: imageSrc,
-    });
+    }).then();
+
+    if (Buildings_list.length >= 5) {
+      Buildings_list.shift();
+      Buildings_list.push("/pictures/" + city_name + ".png");
+    } else {
+      Buildings_list.push("/pictures/" + city_name + ".png");
+    }
   };
   return (
     <>

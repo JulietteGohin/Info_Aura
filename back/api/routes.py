@@ -72,7 +72,7 @@ class Receive(Resource):
         X_indicator = d["XIndicator"]
         Y_indicator = d["YIndicator"]
         imageSrc = str(d["imageSrc"]).split("/")[-1]
-
+        print(imageSrc)
         img = FILE_DATA.chose_graph(X_indicator, Y_indicator, city_name)
         print(PUBLIC_PATH / "pictures" / imageSrc)
         img.savefig(PUBLIC_PATH / "pictures" / imageSrc)

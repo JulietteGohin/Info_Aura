@@ -1,20 +1,17 @@
 /* Body */
 
-  
-
-
 .main {
   font-size: 1.1em;
   background-image: url("background.jpg");
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: "Trebuchet MS", sans-serif;
 }
 
 .grid_container {
   display: grid;
-  grid-template-columns: 30% auto ;
+  grid-template-columns: 30% auto;
 }
 
-.item{
+.item {
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(0, 0, 0, 0.8);
   padding-left: 40px;
@@ -32,11 +29,11 @@
   transition: transform 0.3s ease;
 }
 
-.header, .sub_header {
+.header,
+.sub_header {
   text-align: center;
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(0, 0, 0, 0.8);
-
 }
 
 .history {
@@ -44,15 +41,14 @@
   padding-top: 1%;
   padding-bottom: 1%;
 }
-.li_history{
+.li_history {
   margin: 0;
-  padding:0;
+  padding: 0;
   display: inline;
-  padding-right: 2% ;
+  padding-right: 2%;
   padding-left: 2%;
-  
 }
-.ul_history{
+.ul_history {
   list-style-type: none;
   background-color: aliceblue;
   padding-top: 1%;
@@ -60,16 +56,16 @@
   width: 100%;
   display: none;
 }
-.img_history{
+.img_history {
   width: 16%;
   height: auto;
 }
 
-.ullist{
- display: none;
+.ullist {
+  display: none;
 }
-.ullist_title{
-  background-color: #4CAF50; /* Green */
+.ullist_title {
+  background-color: #4caf50; /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -88,17 +84,14 @@
   margin-right: auto;
 }
 
-
-
-
 /* Left */
-.left{
+.left {
   margin-top: 5%;
 }
-  /* Search bar*/
+/* Search bar*/
 
-.search{
-  background-color: #4CAF50; /* Green */
+.search {
+  background-color: #4caf50; /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -107,29 +100,28 @@
   font-size: 16px;
   margin-left: 5%;
   margin-bottom: 50px;
-  
 }
-.search_bar{
-  margin-top: 50px ;
+.search_bar {
+  margin-top: 50px;
 }
-  /* Button */
+/* Button */
 
-.list{
+.list {
   margin-top: 5%;
 }
 /*Options chosen*/
-.option{
+.option {
   margin-bottom: 5%;
   margin-top: 5%;
 }
-.option_list{
+.option_list {
   display: none;
   margin-left: 5%;
 }
 
 /*Big button */
 
-.big_button{
+.big_button {
   margin-top: 20%;
   background-color: red; /* Green */
   border: none;
@@ -144,16 +136,16 @@
 
 /* Right */
 
-.graphe{
+.graphe {
   background-color: aliceblue;
   border-radius: 50px;
 }
 
-.title{
+.title {
   text-align: center;
   padding-top: 3%;
 }
-.texte{
+.texte {
   text-align: center;
   padding-top: 2%;
   padding-bottom: 3%;
@@ -174,10 +166,10 @@
   margin-bottom: 1%;
 }
 
-.menuItem:hover{
+.menuItem:hover {
   border-color: #e9ecef #e9ecef #dee2e6;
   background-color: rgb(200, 200, 200);
-  color: black
+  color: black;
 }
 
 .menuItem {
@@ -186,7 +178,7 @@
   padding: 10px;
   margin-right: 10px;
   text-decoration: none;
-  color:aliceblue;
+  color: aliceblue;
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
@@ -198,16 +190,14 @@
 
 /* footer */
 
-.footer
-{
-  background-color: #2196F3;
-  color:#737373;
+.footer {
+  background-color: #2196f3;
+  color: #737373;
 }
 
-.footer_links{
+.footer_links {
   list-style: none;
 }
-
 
 .grid {
   display: grid;
@@ -222,49 +212,48 @@
 }
 
 /*footer left*/
-.contact{
-  padding:1%;
+.contact {
+  padding: 1%;
 }
 
-.article{
+.article {
   columns: 2;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-.right_footer{
+.right_footer {
   text-align: right;
-  
 }
-.left_footer{
+.left_footer {
   text-align: left;
   margin-left: 5%;
 }
 
-.icon_container{
+.icon_container {
   text-align: right;
   align-items: center;
   margin-right: 25%;
 }
 
-.icon{
+.icon {
   width: 10%;
-  height: auto; 
+  height: auto;
 }
 /*footer center*/
 
-.padding{
+.padding {
   padding-left: 4%;
   padding-right: 4%;
   line-height: 1.5em;
 }
 
-.row{
-  text-decoration:none;
+.row {
+  text-decoration: none;
 }
 .row:link {
   color: red;
-} 
+}
 
 .row:visited {
   color: green;
@@ -276,19 +265,19 @@
 
 /*Easter Egg*/
 
-.item_footer_egg{
+.item_footer_egg {
   background-color: black;
   color: aliceblue;
   text-align: center;
   display: block;
   border: 1px solid rgba(255, 255, 255, 0.8);
 }
-.egg{
+.egg {
   margin-top: 20%;
   margin-bottom: auto;
 }
-.egg_img{
-  width:0.5%;
+.egg_img {
+  width: 0.5%;
   height: auto;
   position: absolute;
   top: 17%;
@@ -296,12 +285,12 @@
 }
 /*footer right*/
 
-.data_gouv{
+.data_gouv {
   width: 50%;
   height: auto;
 }
 
-.data_gouv_ensemble{
+.data_gouv_ensemble {
   text-align: right;
   display: block;
   padding-right: 5%;
@@ -310,7 +299,7 @@
 
 /*footer bottom*/
 
-.footer_bottom{
+.footer_bottom {
   text-align: center;
   padding: 1%;
   color: aliceblue;
