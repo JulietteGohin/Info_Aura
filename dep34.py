@@ -157,7 +157,7 @@ class Stats:
             if Y_label == "hauteur" or Y_label == "ratio CO2/energie":
                 fig = self.correlation_indicateur_annee(Y_label)
             else:
-                fig = create_empty_graph(X_label, Y_label)
+                fig = self.create_empty_graph(X_label, Y_label)
 
         return fig
 
