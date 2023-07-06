@@ -52,6 +52,29 @@ function Buildings_repr({ list }) {
     </div>
   );
 }
+function Option_chosen({ Xind, Yind, City }) {
+  function openList2() {
+    var list = document.getElementById("options");
+
+    if (list.style.display == "none") {
+      list.style.display = "block";
+    } else {
+      list.style.display = "none";
+    }
+  }
+
+  return (
+    <div className={styles.option}>
+      <button onClick={() => openList2()} className={styles.ullist_title}>
+        {" "}
+        Options Choisies :
+      </button>
+      <p id="options" className={styles.option_list}>
+        X : {Xind}, Y : {Yind}, Ville: {City}
+      </p>
+    </div>
+  );
+}
 
 function Locations_repr({ list }) {
   function openList1() {
@@ -67,7 +90,7 @@ function Locations_repr({ list }) {
     <div className={styles.list}>
       <button onClick={() => openList1()} className={styles.ullist_title}>
         {" "}
-        Locations to choose from :
+        Vous pouvez choisir à partir des locations ci-dessous
       </button>
 
       <ul id="ullist" className={styles.ullist}>
@@ -253,10 +276,14 @@ export default function Home() {
                 />
               </div>
               <Locations_repr list={data2} />
-              <div>
-                <h3>Option chosen:</h3>X : {X_INDICATORS_LIST[XIndicator]}, Y :
-                {Y_INDICATORS_LIST[YIndicator]}, Ville: {city_name}
-              </div>
+              <Option_chosen
+                Xind={X_INDICATORS_LIST[XIndicator]}
+                Yind={Y_INDICATORS_LIST[YIndicator]}
+                City={city_name}
+              />
+              <button onClick={handleButtonClick} className={styles.big_button}>
+                Afficher graphe
+              </button>
             </div>
           </div>
           <div className={styles.item}>
@@ -271,7 +298,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <button onClick={handleButtonClick}>Afficher graphe</button>
+
         <Buildings_repr list={Buildings_list} />
 
         <footer className={styles.footer}>
@@ -410,7 +437,7 @@ export default function Home() {
                     className={styles.row}
                   >
                     {" "}
-                    Lien ver le site
+                    Lien vers le site
                   </a>
                 </p>
               </div>
