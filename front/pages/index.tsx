@@ -128,25 +128,11 @@ export default function Home() {
     { id: number; nom: string; code_postal: string }[]
   >([]);
 
-  const [buildings, setBuildings] = useState([]);
-
   const [imageSrc, setImageSrc] = useState<string>("/pictures/logo-AURA.png");
 
   const [data2, setData2] = useState([]);
   /*récupérons les données du serveur */
   /* d'abord les bâtiments */
-
-  const [timestamp, setTimestamp] = useState(Date.now());
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimestamp(Date.now());
-    }, 100); // Refresh every 5 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const imageUrl = `${imageSrc}?timestamp=${timestamp}`;
 
   const [timestamp, setTimestamp] = useState(Date.now());
 
