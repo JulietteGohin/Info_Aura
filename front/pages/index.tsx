@@ -179,7 +179,6 @@ export default function Home() {
     // it is triggered when an item is selected from the search box
     console.log("selected: ", selected.item);
     const nom = selected.item.label;
-    setImageSrc("/pictures/" + nom + ".png");
 
     //sendData({ type: "filename", filename: selected.item.label });
     setCity_name(nom);

@@ -154,7 +154,9 @@ class Stats:
                 fig = self.create_empty_graph(X_label, Y_label)
 
         elif X_label == "age batiment":
-            if Y_label == "hauteur" or Y_label == "ratio CO2/energie":
+            if Y_label == "hauteur":
+                fig = self.correlation_indicateur_annee(Y_label)
+            elif Y_label == "ratio CO2/energie":
                 fig = self.correlation_indicateur_annee(Y_label)
             else:
                 fig = self.create_empty_graph(X_label, Y_label)
@@ -385,7 +387,7 @@ class Stats:
 
         ax[0].pie(prop_dep, labels=labels, autopct="%1.1f%%", shadow=True)
         ax[0].axis("equal")
-        ax[0].set_title("Répartition des DPE conso énergie dans departement ")
+        ax[0].set_title("Répartition des DPE GES dans departement ")
 
         # City
         gdf_city = self.gdf.groupby(by="libelle_commune_insee")
