@@ -179,7 +179,6 @@ export default function Home() {
     // it is triggered when an item is selected from the search box
     console.log("selected: ", selected.item);
     const nom = selected.item.label;
-    setImageSrc("/pictures/" + nom + ".png");
 
     //sendData({ type: "filename", filename: selected.item.label });
     setCity_name(nom);
@@ -188,6 +187,7 @@ export default function Home() {
       Y_INDICATORS_LIST[YIndicator],
       city_name
     );
+
     /*setImageSrc("/pictures/" + IMAGE_NAMES[current_image_indice]);
     current_image_indice = (current_image_indice + 1) % IMAGE_NAMES.length;
     console.log("imageSrc: ", imageSrc);*/
@@ -210,24 +210,30 @@ export default function Home() {
       city_name
     );
 
-    setImageSrc("/pictures/" + city_name + ".png");
+    setImageSrc("/pictures/" + city_name + XIndicator + YIndicator + ".png");
 
-    current_image_indice = (current_image_indice + 1) % IMAGE_NAMES.length;
+    //current_image_indice = (current_image_indice + 1) % IMAGE_NAMES.length;
 
-    console.log("imageSrc: ", imageSrc);
-    await sendData({
+    sendData({
       city_name: city_name,
       XIndicator: X_INDICATORS_LIST[XIndicator],
       YIndicator: Y_INDICATORS_LIST[YIndicator],
-      imageSrc: imageSrc,
-    }).then();
-
+      imageSrc: "/pictures/" + city_name + XIndicator + YIndicator + ".png",
+    });
+    sleep(2000);
     if (Buildings_list.length >= 5) {
       Buildings_list.shift();
-      Buildings_list.push("/pictures/" + city_name + ".png");
+      Buildings_list.push(
+        "/pictures/" + city_name + XIndicator + YIndicator + ".png"
+      );
     } else {
-      Buildings_list.push("/pictures/" + city_name + ".png");
+      Buildings_list.push(
+        "/pictures/" + city_name + XIndicator + YIndicator + ".png"
+      );
     }
+
+    setImageSrc("/pictures/" + city_name + XIndicator + YIndicator + ".png");
+    console.log("imageSrc: ", imageSrc);
     console.log(Buildings_list);
   };
   return (
