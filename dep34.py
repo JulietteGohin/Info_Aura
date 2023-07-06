@@ -369,24 +369,41 @@ class Stats:
         Output:
         plot circular graphic of the DPE in the city
         """
-        gdf = self.gdf.groupby(by="libelle_commune_insee")
-        gdf = gdf.get_group(city_name)
-        A = gdf["dpe_nb_classe_ges_a"].sum()
-        B = gdf["dpe_nb_classe_ges_b"].sum()
-        C = gdf["dpe_nb_classe_ges_c"].sum()
-        D = gdf["dpe_nb_classe_ges_d"].sum()
-        E = gdf["dpe_nb_classe_ges_e"].sum()
-        F = gdf["dpe_nb_classe_ges_f"].sum()
-        G = gdf["dpe_nb_classe_ges_g"].sum()
-        dpe_gdf = pd.DataFrame(
-            {"GES": [A, B, C, D, E, F, G]}, index=["A", "B", "C", "D", "E", "F", "G"]
-        )
-        fig, ax = plt.subplots()
-        ax.pie(dpe_gdf, labels=dpe_gdf.index, autopct="%1.1f%%", shadow=True)
-        ax.set_ylabel("DPE émissions de GES")
-        plt.title(
-            f"Répartition des indicateurs DPE émissions de GES dans la ville {city_name}"
-        )
+        fig, ax = plt.subplots(2, 1, figsize=(5, 10))
+
+        # Departement
+        labels = "A", "B", "C", "D", "E", "F", "G"
+        prop_dep = [
+            self.gdf["dpe_nb_classe_ges_a"].sum(),
+            self.gdf["dpe_nb_classe_ges_b"].sum(),
+            self.gdf["dpe_nb_classe_ges_c"].sum(),
+            self.gdf["dpe_nb_classe_ges_d"].sum(),
+            self.gdf["dpe_nb_classe_ges_e"].sum(),
+            self.gdf["dpe_nb_classe_ges_f"].sum(),
+            self.gdf["dpe_nb_classe_ges_g"].sum(),
+        ]
+
+        ax[0].pie(prop_dep, labels=labels, autopct="%1.1f%%", shadow=True)
+        ax[0].axis("equal")
+        ax[0].set_title("Répartition des DPE conso énergie dans departement ")
+
+        # City
+        gdf_city = self.gdf.groupby(by="libelle_commune_insee")
+        gdf_city = gdf_city.get_group(city_name)
+        prop_city = [
+            gdf_city["dpe_nb_classe_ges_a"].sum(),
+            gdf_city["dpe_nb_classe_ges_b"].sum(),
+            gdf_city["dpe_nb_classe_ges_c"].sum(),
+            gdf_city["dpe_nb_classe_ges_d"].sum(),
+            gdf_city["dpe_nb_classe_ges_e"].sum(),
+            gdf_city["dpe_nb_classe_ges_f"].sum(),
+            gdf_city["dpe_nb_classe_ges_g"].sum(),
+        ]
+
+        ax[1].pie(prop_city, labels=labels, autopct="%1.1f%%", shadow=True)
+        ax[1].axis("equal")
+        ax[1].set_title(f"Répartition des DPE GES dans {city_name}")
+
         return fig
 
     def create_empty_graph(self, XIndicator, YIndicator):
