@@ -161,15 +161,15 @@ export default function Home() {
       Y_INDICATORS_LIST[YIndicator],
       city_name
     );
-    setImageSrc("/pictures/" + IMAGE_NAMES[current_image_indice]);
+    /*setImageSrc("/pictures/" + IMAGE_NAMES[current_image_indice]);
     current_image_indice = (current_image_indice + 1) % IMAGE_NAMES.length;
-    console.log("imageSrc: ", imageSrc);
-    sendData({
+    console.log("imageSrc: ", imageSrc);*/
+    /*sendData({
       city_name: city_name,
       XIndicator: X_INDICATORS_LIST[XIndicator],
       YIndicator: Y_INDICATORS_LIST[YIndicator],
       imageSrc: imageSrc,
-    });
+    });*/
     // const nom_clean = nom.split("(")[0].trim(); //on enlève le code postal
 
     if (Buildings_list.length >= 5) {
@@ -178,8 +178,6 @@ export default function Home() {
     } else {
       Buildings_list.push("/pictures/" + IMAGE_NAMES[current_image_indice]);
     }
-
-
   };
   const cityOptions = filteredCities.map((city) => ({
     value: `${city.nom} `, //(${city.code_postal})
@@ -281,36 +279,176 @@ export default function Home() {
             <div className={styles.item_footer}>
               <div className={styles.contact}>
                 <h3>Contacts :</h3>
-                  <article className={styles.article}><div className={styles.left_footer}><p>Emile Chazot : </p></div><div className={styles.right_footer}><a href = "mailto: emile.chazot@etu.minesparis.psl.eu" className={styles.icon_container}><img src="/envelope.png" alt="envelope" className={styles.icon}></img></a><a href="https://www.linkedin.com/in/emile-chazot-8abab5253/"  target="_blank" rel="noopener noreferrer" className={styles.icon_container}><img src="/linkedin.png" alt="linkedin" className={styles.icon}></img></a></div></article>
-                  <article className={styles.article}><div className={styles.left_footer}><p>Juliette Gohin: </p></div><div className={styles.right_footer}><a href = "mailto: juliette.gohin@etu.minesparis.psl.eu" className={styles.icon_container}><img src="/envelope.png" alt="envelope" className={styles.icon}></img></a><a href="https://www.linkedin.com/in/juliette-gohin-7a7328254/" target="_blank" rel="noopener noreferrer" className={styles.icon_container}><img src="/linkedin.png" alt="linkedin" className={styles.icon}></img></a></div></article>
-                  <article className={styles.article}><div className={styles.left_footer}><p>Tristan Montalbetti : </p></div><div className={styles.right_footer}><a href = "mailto: tristan.montalbetti@etu.minesparis.psl.eu" className={styles.icon_container}><img src="/envelope.png" alt="envelope" className={styles.icon}></img></a><a href="https://www.linkedin.com/in/tristan-montalbetti-50b893249/"  target="_blank" rel="noopener noreferrer" className={styles.icon_container}><img src="/linkedin.png" alt="linkedin" className={styles.icon}></img></a></div></article>
-                  <article className={styles.article}><div className={styles.left_footer}><p>Jeanne Mirone : </p></div><div className={styles.right_footer}><a href = "mailto: jeanne.mirone@etu.minesparis.psl.eu" className={styles.icon_container}><img src="/envelope.png" alt="envelope" className={styles.icon}></img></a><a href="https://www.linkedin.com/in/jeanne-mirone-50601a271/" target="_blank" rel="noopener noreferrer" className={styles.icon_container}><img src="/linkedin.png" alt="linkedin" className={styles.icon}></img></a></div></article>
+                <article className={styles.article}>
+                  <div className={styles.left_footer}>
+                    <p>Emile Chazot : </p>
+                  </div>
+                  <div className={styles.right_footer}>
+                    <a
+                      href="mailto: emile.chazot@etu.minesparis.psl.eu"
+                      className={styles.icon_container}
+                    >
+                      <img
+                        src="/envelope.png"
+                        alt="envelope"
+                        className={styles.icon}
+                      ></img>
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/emile-chazot-8abab5253/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.icon_container}
+                    >
+                      <img
+                        src="/linkedin.png"
+                        alt="linkedin"
+                        className={styles.icon}
+                      ></img>
+                    </a>
+                  </div>
+                </article>
+                <article className={styles.article}>
+                  <div className={styles.left_footer}>
+                    <p>Juliette Gohin: </p>
+                  </div>
+                  <div className={styles.right_footer}>
+                    <a
+                      href="mailto: juliette.gohin@etu.minesparis.psl.eu"
+                      className={styles.icon_container}
+                    >
+                      <img
+                        src="/envelope.png"
+                        alt="envelope"
+                        className={styles.icon}
+                      ></img>
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/juliette-gohin-7a7328254/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.icon_container}
+                    >
+                      <img
+                        src="/linkedin.png"
+                        alt="linkedin"
+                        className={styles.icon}
+                      ></img>
+                    </a>
+                  </div>
+                </article>
+                <article className={styles.article}>
+                  <div className={styles.left_footer}>
+                    <p>Tristan Montalbetti : </p>
+                  </div>
+                  <div className={styles.right_footer}>
+                    <a
+                      href="mailto: tristan.montalbetti@etu.minesparis.psl.eu"
+                      className={styles.icon_container}
+                    >
+                      <img
+                        src="/envelope.png"
+                        alt="envelope"
+                        className={styles.icon}
+                      ></img>
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/tristan-montalbetti-50b893249/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.icon_container}
+                    >
+                      <img
+                        src="/linkedin.png"
+                        alt="linkedin"
+                        className={styles.icon}
+                      ></img>
+                    </a>
+                  </div>
+                </article>
+                <article className={styles.article}>
+                  <div className={styles.left_footer}>
+                    <p>Jeanne Mirone : </p>
+                  </div>
+                  <div className={styles.right_footer}>
+                    <a
+                      href="mailto: jeanne.mirone@etu.minesparis.psl.eu"
+                      className={styles.icon_container}
+                    >
+                      <img
+                        src="/envelope.png"
+                        alt="envelope"
+                        className={styles.icon}
+                      ></img>
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/jeanne-mirone-50601a271/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.icon_container}
+                    >
+                      <img
+                        src="/linkedin.png"
+                        alt="linkedin"
+                        className={styles.icon}
+                      ></img>
+                    </a>
+                  </div>
+                </article>
               </div>
             </div>
             <div className={styles.item_footer}>
               <div className={styles.padding}>
                 <h3>Sujet du projet</h3>
                 <p>
-                  Afin de connaître plus sur notre projet veuillez vous dirriger sur notre site annexe. Le site se situe au lien suivant : 
-                  <a href="http://localhost:3000/about/" target="_blank" rel="noopener noreferrer" className={styles.row}> Lien ver le site</a>
+                  Afin de connaître plus sur notre projet veuillez vous dirriger
+                  sur notre site annexe. Le site se situe au lien suivant :
+                  <a
+                    href="http://localhost:3000/about/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.row}
+                  >
+                    {" "}
+                    Lien ver le site
+                  </a>
                 </p>
               </div>
             </div>
             <div className={styles.item_footer_egg}>
               <div className={styles.egg}>
                 <h2>Easter EGG</h2>
-                <h3>
-                  Trouver l'œuf noir sur le site
-                </h3>
-                <a href="https://findtheinvisiblecow.com" target="_blank" rel="noopener noreferrer" ><img src="/black_egg.png" alt="black_egg" className={styles.egg_img}></img></a>
+                <h3>Trouver l'œuf noir sur le site</h3>
+                <a
+                  href="https://findtheinvisiblecow.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="/black_egg.png"
+                    alt="black_egg"
+                    className={styles.egg_img}
+                  ></img>
+                </a>
               </div>
             </div>
             <div className={styles.item_footer}>
               <div className={styles.data_gouv_ensemble}>
                 <h3>Lien des données d'orgine :</h3>
-                <p>Vous pouvez trouvez l'ensembles des données utilisées dans le projet sur le site data.gouv.</p>
-                <a href="https://www.data.gouv.fr/fr/datasets/?q=dpe" target="_blank" rel="noopener noreferrer">
-                  <img src="/data_gouv.png" alt="data_gouv" className={styles.data_gouv}></img>
+                <p>
+                  Vous pouvez trouvez l'ensembles des données utilisées dans le
+                  projet sur le site data.gouv.
+                </p>
+                <a
+                  href="https://www.data.gouv.fr/fr/datasets/?q=dpe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="/data_gouv.png"
+                    alt="data_gouv"
+                    className={styles.data_gouv}
+                  ></img>
                 </a>
               </div>
             </div>
@@ -320,7 +458,8 @@ export default function Home() {
               Copyright &copy; 2023 All Rights Reserved by Me{" "}
             </p>
             <p>
-              Nous aimerions remercier Matthieu Denoux de nous avoir accompagné et aidé tout au long de ce projet.
+              Nous aimerions remercier Matthieu Denoux de nous avoir accompagné
+              et aidé tout au long de ce projet.
             </p>
           </div>
         </footer>

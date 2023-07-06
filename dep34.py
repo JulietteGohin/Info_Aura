@@ -127,6 +127,7 @@ class Stats:
                 "dpe_logtype_ratio_ges_conso",
                 "ffo_bat_annee_construction",
                 "ffo_bat_nb_log",
+                "dpe_logtype_baie_type_vitrage",
             ]
         ]
 
@@ -144,9 +145,17 @@ class Stats:
                 fig = self.dpe_departement_city(city_name)
             else:
                 fig = self.hist_city(city_name, Y_label)
+
         elif X_label == "vitrage":
-            fig = self.conso_ges_selon_vitrage()
+            if Y_label == "hauteur":
+                fig = self.create_empty_graph(X_label, Y_label)
+            else:
+                fig = self.conso_ges_selon_vitrage()
+
         elif X_label == "age batiment":
+            if Y_label == "DPE_GES":
+                fig = self.create_empty_graph(X_label, Y_label)
+
             fig = self.correlation_indicateur_annee(Y_label)
         return fig
 
@@ -250,7 +259,7 @@ class Stats:
 
         ax[0].pie(prop_dep, labels=labels, autopct="%1.1f%%", shadow=True)
         ax[0].axis("equal")
-        ax[0].set_title("Répartition des DPE dans le département")
+        ax[0].set_title("Répartition des DPE conso énergie dans departement ")
 
         # City
         gdf_city = self.gdf.groupby(by="libelle_commune_insee")
@@ -267,7 +276,7 @@ class Stats:
 
         ax[1].pie(prop_city, labels=labels, autopct="%1.1f%%", shadow=True)
         ax[1].axis("equal")
-        ax[1].set_title(f"Répartition des DPE dans la ville {city_name}")
+        ax[1].set_title(f"Répartition des DPE conso énergie dans {city_name}")
 
         return fig
 
@@ -341,7 +350,7 @@ class Stats:
         fig, ax = plt.subplots()
         ax.scatter(annee_moyenne, indicateur_moyen, marker="o")
         ax.set_title(
-            "Correlation entre la hauteur moyenne des batiments et l'annee de construction, par iris"
+            "Hauteur moyenne des batiments fonction de leur age dans departement"
         )
         ax.set_xlabel("Annee de construction")
         ax.set_ylabel("Hauteur moyenne des batiments (en m)")
@@ -376,6 +385,22 @@ class Stats:
         plt.title(
             f"Répartition des indicateurs DPE émissions de GES dans la ville {city_name}"
         )
+        return fig
+
+    def create_empty_graph(self, XIndicator, YIndicator):
+        """Create an empty figure with a title
+        ---
+        Parameters:
+        XIndicator : str
+        YIndicator : str
+        ---
+        Output:
+        fig containing empty graph
+
+        """
+        fig, ax = plt.subplots()
+        ax.set_title(f"Correlation entre {XIndicator} et {YIndicator} n'existe pas")
+        ax.axis("off")  # Turn off axis display
         return fig
 
 
