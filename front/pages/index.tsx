@@ -11,6 +11,7 @@ const IMAGE_NAMES = [
   "image2.png",
   "image3.png",
   "image4.png",
+  "image5.png",
 ];
 let current_image_indice = 1;
 let alternative_img_source = "/pictures/logo-AURA.png";
@@ -127,9 +128,25 @@ export default function Home() {
     { id: number; nom: string; code_postal: string }[]
   >([]);
 
-  const [imageSrc, setImageSrc] = useState("/pictures/logo-AURA.png");
+  const [buildings, setBuildings] = useState([]);
+
+  const [imageSrc, setImageSrc] = useState<string>("/pictures/logo-AURA.png");
+
   const [data2, setData2] = useState([]);
   /*récupérons les données du serveur */
+  /* d'abord les bâtiments */
+
+  const [timestamp, setTimestamp] = useState(Date.now());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimestamp(Date.now());
+    }, 100); // Refresh every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const imageUrl = `${imageSrc}?timestamp=${timestamp}`;
 
   const [timestamp, setTimestamp] = useState(Date.now());
 
@@ -176,18 +193,25 @@ export default function Home() {
     // it is triggered when an item is selected from the search box
     console.log("selected: ", selected.item);
     const nom = selected.item.label;
+    setImageSrc("/pictures/" + nom + ".png");
+
     //sendData({ type: "filename", filename: selected.item.label });
     setCity_name(nom);
-    setImageSrc(imageSrc);
-    console.log("imageSrc: ", imageSrc);
-
-    /*if (Buildings_list.length >= 5) {
-      Buildings_list.shift();
-      Buildings_list.push("/pictures/" + IMAGE_NAMES[current_image_indice]);
-    } else {
-      Buildings_list.push("/pictures/" + IMAGE_NAMES[current_image_indice]);
-    }*/
-    console.log("current_image_indice: ", current_image_indice);
+    console.log(
+      X_INDICATORS_LIST[XIndicator],
+      Y_INDICATORS_LIST[YIndicator],
+      city_name
+    );
+    /*setImageSrc("/pictures/" + IMAGE_NAMES[current_image_indice]);
+    current_image_indice = (current_image_indice + 1) % IMAGE_NAMES.length;
+    console.log("imageSrc: ", imageSrc);*/
+    /*sendData({
+      city_name: city_name,
+      XIndicator: X_INDICATORS_LIST[XIndicator],
+      YIndicator: Y_INDICATORS_LIST[YIndicator],
+      imageSrc: imageSrc,
+    });*/
+    // const nom_clean = nom.split("(")[0].trim(); //on enlève le code postal
   };
   const cityOptions = filteredCities.map((city) => ({
     value: `${city.nom} `, //(${city.code_postal})
